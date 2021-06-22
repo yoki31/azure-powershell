@@ -278,6 +278,7 @@ namespace VersionController.Models
                 Console.ForegroundColor = currentColor;
                 var newCmdletFile = Path.Join(serializedCmdletsDirectory, serializedCmdletName);
                 SerializeCmdlets(newCmdletFile, newModuleMetadata);
+                return Version.PATCH;
             }
             var oldModuleMetadata = DeserializeCmdlets(serializedCmdletFile);
             CmdletLoader.ModuleMetadata = oldModuleMetadata;
