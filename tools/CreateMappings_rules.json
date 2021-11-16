@@ -708,5 +708,9 @@
   {
     "alias": "CustomLocation",
     "regex": "CustomLocation"
+  },
+  {
+    "regex": "DnsResolver",
+    "alias": "DnsResolver"
   }
 ]

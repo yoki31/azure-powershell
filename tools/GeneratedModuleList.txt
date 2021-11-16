@@ -20,6 +20,7 @@ Az.DedicatedHsm
 Az.DesktopVirtualization
 Az.DigitalTwins
 Az.DiskPool
+Az.DnsResolver
 Az.Elastic
 Az.Functions
 Az.HanaOnAzure
