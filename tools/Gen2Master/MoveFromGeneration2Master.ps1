@@ -211,11 +211,11 @@ Function Update-MappingJson {
         $MappingPath = Join-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..') -ChildPath "CreateMappings_rules.json"
         $MappingObject = Get-Content -Path $MappingPath | ConvertFrom-Json
         Foreach ($Item in $MappingObject) {
-            If ($ModuleName -eq $Item.regex) {
+            If ($ModuleName -eq $Item.module $ModuleName -eq $Item.regex) {
                 return
             }
         }
-        $MappingObject = $MappingObject + @{regex=$ModuleName; alias=$ModuleName}
+        $MappingObject = $MappingObject + @{module=$ModuleName; alias=$ModuleName}
         ConvertTo-Json $MappingObject -Depth 1 | Set-Content -Path $MappingPath
     }
 }
