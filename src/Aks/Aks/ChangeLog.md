@@ -18,9 +18,80 @@
         - Additional information about change #1
 -->
 ## Upcoming Release
-* Added some breaking changes in `Get-AzAksVersion`.
-    * Removed `DefaultProfile`'s alias `AzContext` and `AzureRmContext`.
-    * Changed output type from `Microsoft.Azure.Commands.Aks.Models.PSOrchestratorVersionProfile` to `Microsoft.Azure.PowerShell.Cmdlets.Aks.Models.Api20190801.OrchestratorProfile`
+* Added parameter `-AadProfile` for `New-AzAksCluster` and `Set-AzAksCluster`
+
+## Version 5.2.0
+* Added parameter `-EnableEncryptionAtHost` for `New-AzAksCluster` and `New-AzAksNodePool`
+* Added parameter `-EnableUltraSSD` for `New-AzAksCluster` and `New-AzAksNodePool`
+* Added parameter `-NodeKubeletConfig` for `New-AzAksCluster`, `-KubeletConfig` for `New-AzAksNodePool`
+* Added parameter `-NodeLinuxOSConfig` for `New-AzAksCluster`, `-LinuxOSConfig` and `New-AzAksNodePool`
+* Added parameter `-NodeMaxSurge` for `New-AzAksCluster`, `-MaxSurge` for `New-AzAksNodePool` and `Update-AzAksNodePool`
+* Added parameter `-PPG` for `New-AzAksCluster` and `New-AzAksNodePool`
+* Added parameter `-SpotMaxPrice` for `New-AzAksNodePool`
+* Added parameter `-EnableFIPS` for `New-AzAksCluster` and `New-AzAksNodePool`
+* Added parameter `-AutoScalerProfile` for `New-AzAksCluster` and `Set-AzAksCluster`
+* Added parameter `-GpuInstanceProfile` for `New-AzAksCluster` and `New-AzAksNodePool`
+* Added parameter `-EnableUptimeSLA` for `New-AzAksCluster` and `Set-AzAksCluster`
+* Added parameter `-EdgeZone` for `New-AzAksCluster`
+
+## Version 5.1.0
+* Bumped API version to 2022-09-01
+* Added parameter `-NodeOsSKU` for `New-AzAksCluster` and parameter `-OsSKU` for `New-AzAksNodePool`
+* Added parameter `-Mode` for `New-AzAksNodePool` and `Update-AzAksNodePool`
+* Added property `-NodeImageVersion` for the output of `Get-AzAksNodePool`[#19893]
+* Added parameter `-NodePoolLabel` for `Set-AzAksCluster`, `-NodeLabel` for `New-AzAksNodePool` and `Update-AzAksNodePool`
+* Added parameter `-NodePoolTag` for `New-AzAksCluster` and `Set-AzAksCluster`, `-Tag` for `New-AzAksNodePool` and `Update-AzAksNodePool`
+* Added parameter `-NodeTaint` for `New-AzAksNodePool` and `Update-AzAksNodePool`
+* Added parameter `-AksCustomHeader` for `Set-AzAksCluster`, `New-AzAksNodePool` and `Update-AzAksNodePool`
+
+## Version 5.0.1
+* Upgraded AutoMapper to Microsoft.Azure.PowerShell.AutoMapper 6.2.2 with fix [#18721]
+
+## Version 5.0.0
+* [Breaking Change] Removed the alias `Install-AzAksKubectl` of `Install-AzAksCliTool`.
+
+## Version 4.3.0
+* Added support of `FQDN` in `Import-AzAksCredential` [#17711]
+* Added hint when `Import-AzAksCredential` meets bad formatted kubernetes configuration file [#16741]
+* Added parameter `-NodeResourceGroup` for `New-AzAksCluster`. [#19014]
+* Added support for `Auto Upgrade` in `New-AzAksCluster` and `Set-AzAksCluster`.
+* Added support for `Http Proxy` in `New-AzAksCluster` and `Set-AzAksCluster`.
+* Added parameter `DisableLocalAccount` and `DiskEncryptionSetID` in `New-AzAksCluster` and `Set-AzAksCluster`.
+* Added logic for installing `kubelogin` in `Install-AzAksKubectl`.
+
+## Version 4.2.1
+* Removed the warning messages for MSGraph migration [#18856]
+
+## Version 4.2.0
+* Added parameter `CommandContextAttachmentZip` for `Invoke-AzAksRunCommand`. [#17454]
+* Added ManagedIdentity support for Aks[#15656].
+* Added property `PowerState` for the output of `Get-AzAksCluster`[#18271]
+* Updated the logic of `Set-AzAksCluster` for parameter `NodeImageOnly`.
+* Added parameter `NodeImageOnly` for `Update-AzAksNodePool`.
+* Added parameter `AvailabilityZone` for `New-AzAksCluster`. [#18658]
+
+## Version 4.1.0
+* Removed these aliases:
+  * `Get-AzAks`
+  * `New-AzAks`
+  * `Set-AzAks`
+  * `Remove-AzAks`
+
+## Version 3.1.3
+* Updated the description of `Force` in `Invoke-AzAksRunCommand` [#17756]
+* Fixed the issue that `identity` cannot be piped into `Set-AzAksCluster` [#17376]
+
+## Version 3.1.2
+* Updated the breaking change warning messages [#16805]
+
+## Version 3.1.1
+* Fixed the typo in `New-AzAksCluster` [#16733]
+
+## Version 3.1.0
+* Added support of `load balancer` and `api server access` in `New-AzAksCluster` and `Set-AzAksCluster`. [#16575]
+
+## Version 3.0.0
+* [Breaking Change] Updated parameter alias and output type of `Get-AzAksVersion`
 * Added `Invoke-AzAksRunCommand` to support running a shell command (with kubectl, helm) on aks cluster. [#16104]
 * Added support of `EnableNodePublicIp` and `NodePublicIPPrefixID` for `New-AzAksCluster` and `New-AzAksNodePool`. [#15656]
 * Migrated the logic of creating service principal in `New-AzAksCluster` from `Azure Active Directory Graph` to `Microsoft Graph`.

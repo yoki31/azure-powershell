@@ -20,14 +20,18 @@ Creates key credentials or password credentials for an application.
 .Description
 Creates key credentials or password credentials for an application.
 .Example
-PS C:\> $credential = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential" `
+# ObjectId is the string representation of a GUID for directory object, application, in Azure AD.
+$Id = "00000000-0000-0000-0000-000000000000"
+# $cert is Base64 encoded content of certificate
+$credential = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential" `
                                  -Property @{'Key' = $cert;
-                                 'Usage'       = 'Verify'; 
+                                 'Usage'       = 'Verify';
                                  'Type'        = 'AsymmetricX509Cert'
                                  }
-PS C:\> New-AzADAppCredential -ObjectId $Id -KeyCredentials $credential
+New-AzADAppCredential -ObjectId $Id -KeyCredentials $credential
 .Example
-
+# ApplicationId is AppId of Application object which is different from directory id in Azure AD.
+Get-AzADApplication -ApplicationId $appId | New-AzADAppCredential -StartDate $startDate -EndDate $endDate
 
 .Inputs
 Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphApplication
@@ -42,7 +46,7 @@ To create the parameters described below, construct a hash table containing the 
 
 APPLICATIONOBJECT <IMicrosoftGraphApplication>: The application object, could be used as pipeline input.
   [(Any) <Object>]: This indicates any property can be added to this object.
-  [DeletedDateTime <DateTime?>]: 
+  [DeletedDateTime <DateTime?>]: Date and time when this object was deleted. Always null when the object hasn't been deleted.
   [DisplayName <String>]: The name displayed in directory
   [AddIn <IMicrosoftGraphAddIn[]>]: Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications that can render file streams may set the addIns property for its 'FileHandler' functionality. This will let services like Office 365 call the application in the context of a document the user is working on.
     [Id <String>]: 
@@ -76,19 +80,25 @@ APPLICATIONOBJECT <IMicrosoftGraphApplication>: The application object, could be
     [IsEnabled <Boolean?>]: When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false.  At that point, in a subsequent call, this role may be removed.
     [Value <String>]: Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , - . / : ;  =  ? @ [ ] ^ + _  {  } ~, as well as characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, are not allowed. May not begin with ..
   [ApplicationTemplateId <String>]: Unique identifier of the applicationTemplate.
-  [CreatedOnBehalfOfDeletedDateTime <DateTime?>]: 
+  [CreatedOnBehalfOfDeletedDateTime <DateTime?>]: Date and time when this object was deleted. Always null when the object hasn't been deleted.
   [CreatedOnBehalfOfDisplayName <String>]: The name displayed in directory
   [Description <String>]: An optional description of the application. Returned by default. Supports $filter (eq, ne, NOT, ge, le, startsWith) and $search.
   [DisabledByMicrosoftStatus <String>]: Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).  Supports $filter (eq, ne, NOT).
+  [FederatedIdentityCredentials <IMicrosoftGraphFederatedIdentityCredential[]>]: Federated identities for applications. Supports $expand and $filter (eq when counting empty collections).
+    [Audience <String[]>]: Lists the audiences that can appear in the external token. This field is mandatory, and defaults to 'api://AzureADTokenExchange'. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Azure AD in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. Required.
+    [Description <String>]: The un-validated, user-provided description of the federated identity credential. Optional.
+    [Issuer <String>]: The URL of the external identity provider and must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app. Required.
+    [Name <String>]: is the unique identifier for the federated identity credential, which has a character limit of 120 characters and must be URL friendly. It is immutable once created. Required. Not nullable. Supports $filter (eq).
+    [Subject <String>]: Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Azure AD. The combination of issuer and subject must be unique on the app. Supports $filter (eq).
   [GroupMembershipClaim <String>]: Configures the groups claim issued in a user or OAuth 2.0 access token that the application expects. To set this attribute, use one of the following string values: None, SecurityGroup (for security groups and Azure AD roles), All (this gets all security groups, distribution groups, and Azure AD directory roles that the signed-in user is a member of).
   [HomeRealmDiscoveryPolicy <IMicrosoftGraphHomeRealmDiscoveryPolicy[]>]: 
     [AppliesTo <IMicrosoftGraphDirectoryObject[]>]: 
-      [DeletedDateTime <DateTime?>]: 
+      [DeletedDateTime <DateTime?>]: Date and time when this object was deleted. Always null when the object hasn't been deleted.
       [DisplayName <String>]: The name displayed in directory
     [Definition <String[]>]: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     [IsOrganizationDefault <Boolean?>]: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     [Description <String>]: Description for this policy.
-    [DeletedDateTime <DateTime?>]: 
+    [DeletedDateTime <DateTime?>]: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     [DisplayName <String>]: The name displayed in directory
   [IdentifierUri <String[]>]: The URIs that identify the application within its Azure AD tenant, or within a verified custom domain if the application is multi-tenant. For more information, see Application Objects and Service Principal Objects. The any operator is required for filter expressions on multi-valued properties. Not nullable. Supports $filter (eq, ne, ge, le, startsWith).
   [Info <IMicrosoftGraphInformationalUrl>]: informationalUrl
@@ -149,14 +159,14 @@ APPLICATIONOBJECT <IMicrosoftGraphApplication>: The application object, could be
     [Definition <String[]>]: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     [IsOrganizationDefault <Boolean?>]: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     [Description <String>]: Description for this policy.
-    [DeletedDateTime <DateTime?>]: 
+    [DeletedDateTime <DateTime?>]: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     [DisplayName <String>]: The name displayed in directory
   [TokenLifetimePolicy <IMicrosoftGraphTokenLifetimePolicy[]>]: The tokenLifetimePolicies assigned to this application. Supports $expand.
     [AppliesTo <IMicrosoftGraphDirectoryObject[]>]: 
     [Definition <String[]>]: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     [IsOrganizationDefault <Boolean?>]: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     [Description <String>]: Description for this policy.
-    [DeletedDateTime <DateTime?>]: 
+    [DeletedDateTime <DateTime?>]: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     [DisplayName <String>]: The name displayed in directory
   [Web <IMicrosoftGraphWebApplication>]: webApplication
     [(Any) <Object>]: This indicates any property can be added to this object.
@@ -185,14 +195,15 @@ PASSWORDCREDENTIALS <MicrosoftGraphPasswordCredential[]>: Password credentials a
   [KeyId <String>]: The unique identifier for the password.
   [StartDateTime <DateTime?>]: The date and time at which the password becomes valid. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Optional.
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/new-azadappcredential
+https://learn.microsoft.com/powershell/module/az.resources/new-azadappcredential
 #>
 function New-AzADAppCredential {
 [OutputType([Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphKeyCredential], [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphPasswordCredential])]
 [CmdletBinding(DefaultParameterSetName='ApplicationObjectIdWithPasswordParameterSet', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
 param(
     [Parameter(ParameterSetName='ApplicationObjectIdWithPasswordParameterSet', Mandatory)]
-    [Parameter(ParameterSetName='ApplicationObjectIdWithCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationObjectIdWithPasswordCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationObjectIdWithKeyCredentialParameterSet', Mandatory)]
     [Parameter(ParameterSetName='ApplicationObjectIdWithCertValueParameterSet', Mandatory)]
     [Alias('Id')]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
@@ -235,25 +246,25 @@ param(
     [System.String]
     ${CustomKeyIdentifier},
 
-    [Parameter(ParameterSetName='ApplicationObjectIdWithCredentialParameterSet')]
-    [Parameter(ParameterSetName='ApplicationIdWithCredentialParameterSet')]
-    [Parameter(ParameterSetName='DisplayNameWithCredentialParameterSet')]
-    [Parameter(ParameterSetName='ApplicationObjectWithCredentialParameterSet')]
-    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
-    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential[]]
-    # key credentials associated with the application.
-    # To construct, see NOTES section for KEYCREDENTIALS properties and create a hash table.
-    ${KeyCredentials},
-
-    [Parameter(ParameterSetName='ApplicationObjectIdWithCredentialParameterSet')]
-    [Parameter(ParameterSetName='ApplicationIdWithCredentialParameterSet')]
-    [Parameter(ParameterSetName='DisplayNameWithCredentialParameterSet')]
-    [Parameter(ParameterSetName='ApplicationObjectWithCredentialParameterSet')]
+    [Parameter(ParameterSetName='ApplicationObjectIdWithPasswordCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationIdWithPasswordCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='DisplayNameWithPasswordCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationObjectWithPasswordCredentialParameterSet', Mandatory)]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphPasswordCredential[]]
     # Password credentials associated with the application.
     # To construct, see NOTES section for PASSWORDCREDENTIALS properties and create a hash table.
     ${PasswordCredentials},
+
+    [Parameter(ParameterSetName='ApplicationObjectIdWithKeyCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationIdWithKeyCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='DisplayNameWithKeyCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationObjectWithKeyCredentialParameterSet', Mandatory)]
+    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
+    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential[]]
+    # key credentials associated with the application.
+    # To construct, see NOTES section for KEYCREDENTIALS properties and create a hash table.
+    ${KeyCredentials},
 
     [Parameter(ParameterSetName='ApplicationObjectIdWithCertValueParameterSet', Mandatory)]
     [Parameter(ParameterSetName='ApplicationIdWithCertValueParameterSet', Mandatory)]
@@ -265,7 +276,8 @@ param(
     # It represents the base 64 encoded certificate.
     ${CertValue},
 
-    [Parameter(ParameterSetName='ApplicationIdWithCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationIdWithPasswordCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='ApplicationIdWithKeyCredentialParameterSet', Mandatory)]
     [Parameter(ParameterSetName='ApplicationIdWithPasswordParameterSet', Mandatory)]
     [Parameter(ParameterSetName='ApplicationIdWithCertValueParameterSet', Mandatory)]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
@@ -273,7 +285,8 @@ param(
     # The application Id.
     ${ApplicationId},
 
-    [Parameter(ParameterSetName='DisplayNameWithCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='DisplayNameWithPasswordCredentialParameterSet', Mandatory)]
+    [Parameter(ParameterSetName='DisplayNameWithKeyCredentialParameterSet', Mandatory)]
     [Parameter(ParameterSetName='DisplayNameWithCertValueParameterSet', Mandatory)]
     [Parameter(ParameterSetName='DisplayNameWithPasswordParameterSet', Mandatory)]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
@@ -281,7 +294,8 @@ param(
     # The display name of application.
     ${DisplayName},
 
-    [Parameter(ParameterSetName='ApplicationObjectWithCredentialParameterSet', Mandatory, ValueFromPipeline)]
+    [Parameter(ParameterSetName='ApplicationObjectWithPasswordCredentialParameterSet', Mandatory, ValueFromPipeline)]
+    [Parameter(ParameterSetName='ApplicationObjectWithKeyCredentialParameterSet', Mandatory, ValueFromPipeline)]
     [Parameter(ParameterSetName='ApplicationObjectWithCertValueParameterSet', Mandatory, ValueFromPipeline)]
     [Parameter(ParameterSetName='ApplicationObjectWithPasswordParameterSet', Mandatory, ValueFromPipeline)]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
@@ -345,19 +359,41 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
+        if ($null -eq [Microsoft.WindowsAzure.Commands.Utilities.Common.AzurePSCmdlet]::PowerShellVersion) {
+            [Microsoft.WindowsAzure.Commands.Utilities.Common.AzurePSCmdlet]::PowerShellVersion = $Host.Version.ToString()
+        }         
+        $preTelemetryId = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId
+        if ($preTelemetryId -eq '') {
+            [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId =(New-Guid).ToString()
+            [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.module]::Instance.Telemetry.Invoke('Create', $MyInvocation, $parameterSet, $PSCmdlet)
+        } else {
+            $internalCalledCmdlets = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets
+            if ($internalCalledCmdlets -eq '') {
+                [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets = $MyInvocation.MyCommand.Name
+            } else {
+                [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets += ',' + $MyInvocation.MyCommand.Name
+            }
+            [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId = 'internal'
+        }
+
         $mapping = @{
-            ApplicationObjectIdWithPasswordParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationObjectIdWithCredentialParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationObjectIdWithCertValueParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationIdWithCredentialParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationIdWithPasswordParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationIdWithCertValueParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            DisplayNameWithCredentialParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            DisplayNameWithCertValueParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            DisplayNameWithPasswordParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationObjectWithCredentialParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationObjectWithCertValueParameterSet = 'MSGraph.custom\New-AzADAppCredential';
-            ApplicationObjectWithPasswordParameterSet = 'MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectIdWithPasswordParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectIdWithPasswordCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectIdWithKeyCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectIdWithCertValueParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationIdWithPasswordCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationIdWithKeyCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationIdWithPasswordParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationIdWithCertValueParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            DisplayNameWithPasswordCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            DisplayNameWithKeyCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            DisplayNameWithCertValueParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            DisplayNameWithPasswordParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectWithPasswordCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectWithKeyCredentialParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectWithCertValueParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
+            ApplicationObjectWithPasswordParameterSet = 'Az.MSGraph.custom\New-AzADAppCredential';
         }
         $cmdInfo = Get-Command -Name $mapping[$parameterSet]
         [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Runtime.MessageAttributeHelper]::ProcessCustomAttributesAtRuntime($cmdInfo, $MyInvocation, $parameterSet, $PSCmdlet)
@@ -366,6 +402,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
         throw
     }
 }
@@ -374,15 +411,32 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
         throw
     }
-}
 
+    finally {
+        $backupTelemetryId = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId
+        $backupInternalCalledCmdlets = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
+    }
+
+}
 end {
     try {
         $steppablePipeline.End()
+
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId = $backupTelemetryId
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets = $backupInternalCalledCmdlets
+        if ($preTelemetryId -eq '') {
+            [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.module]::Instance.Telemetry.Invoke('Send', $MyInvocation, $parameterSet, $PSCmdlet)
+            [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
+        }
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId = $preTelemetryId
+
     } catch {
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
         throw
     }
-}
+} 
 }

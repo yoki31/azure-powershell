@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/get-azlegacypeering
+online version: https://learn.microsoft.com/powershell/module/az.peering/get-azlegacypeering
 schema: 2.0.0
 ---
 
@@ -24,8 +24,10 @@ The command is used to view legacy Peering resources which all you to convert th
 
 ### Example 1
 ```powershell
-PS C:> Get-AzLegacyPeering -PeeringLocation "Seattle" -Kind Direct
+Get-AzLegacyPeering -PeeringLocation "Seattle" -Kind Direct
+```
 
+```output
 Name                       :
 Sku                        : Basic_Direct_Free
 Kind                       : Direct

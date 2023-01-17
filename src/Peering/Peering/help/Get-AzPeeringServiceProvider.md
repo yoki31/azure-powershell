@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/get-azpeeringserviceprovider
+online version: https://learn.microsoft.com/powershell/module/az.peering/get-azpeeringserviceprovider
 schema: 2.0.0
 ---
 
@@ -23,8 +23,10 @@ List peering service providers
 
 ### Example 1
 ```powershell
-PS C:\> Get-AzPeeringServiceProvider
+Get-AzPeeringServiceProvider
+```
 
+```output
 ServiceProviderName Name      Id Type
 ------------------- ----      -- ----
 TestPeer1           TestPeer1    Microsoft.Peering/peeringServiceProviders

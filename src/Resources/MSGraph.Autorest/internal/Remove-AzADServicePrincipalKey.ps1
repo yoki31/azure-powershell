@@ -20,13 +20,9 @@ Invoke action removeKey
 .Description
 Invoke action removeKey
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+{{ Add code here }}
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+{{ Add code here }}
 
 .Inputs
 Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IPaths1UhuhlbServiceprincipalsServiceprincipalIdMicrosoftGraphRemovekeyPostRequestbodyContentApplicationJsonSchema
@@ -42,7 +38,7 @@ BODY <IPaths1UhuhlbServiceprincipalsServiceprincipalIdMicrosoftGraphRemovekeyPos
   [KeyId <String>]: 
   [Proof <String>]: 
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/remove-azadserviceprincipalkey
+https://learn.microsoft.com/powershell/module/az.resources/remove-azadserviceprincipalkey
 #>
 function Remove-AzADServicePrincipalKey {
 [OutputType([System.Boolean])]
@@ -140,9 +136,10 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
         $mapping = @{
-            Remove = 'Az.Resources.MSGraph.private\Remove-AzADServicePrincipalKey_Remove';
-            RemoveExpanded = 'Az.Resources.MSGraph.private\Remove-AzADServicePrincipalKey_RemoveExpanded';
+            Remove = 'Az.MSGraph.private\Remove-AzADServicePrincipalKey_Remove';
+            RemoveExpanded = 'Az.MSGraph.private\Remove-AzADServicePrincipalKey_RemoveExpanded';
         }
 
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
@@ -150,6 +147,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+
         throw
     }
 }
@@ -158,15 +156,18 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+
         throw
     }
-}
 
+}
 end {
     try {
         $steppablePipeline.End()
+
     } catch {
+
         throw
     }
-}
+} 
 }

@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/new-azpeeringregisteredasn
+online version: https://learn.microsoft.com/powershell/module/az.peering/new-azpeeringregisteredasn
 schema: 2.0.0
 ---
 
@@ -35,17 +35,17 @@ Create registered ASNs for peering objects.
 
 ## EXAMPLES
 
-### Get peering and create a registered ASN
+### Example 1: Get peering and create a registered ASN
 ```powershell
-PS C:\>$peering = Get-AzPeering -ResourceGroupName $resourceGroupName -Name $name
-PS C:\>$peering | New-AzPeeringRegisteredAsn -Name $asnName -Asn $asn
+$peering = Get-AzPeering -ResourceGroupName $resourceGroupName -Name $name
+$peering | New-AzPeeringRegisteredAsn -Name $asnName -Asn $asn
 ```
 
 Get the peering you want to add a registered ASN. Then pass that to the commandlet.
 
-### Use peering resourceId to create a registered asn
+### Example 2: Use peering resourceId to create a registered asn
 ```powershell
-PS C:\>New-AzPeeringRegisteredAsn -ResourceId $resourceId -Name $asnName -Asn $asn
+New-AzPeeringRegisteredAsn -ResourceId $resourceId -Name $asnName -Asn $asn
 ```
 
 ## PARAMETERS

@@ -22,16 +22,18 @@ The directoryObject type is the base type for many other directory entity types.
 Represents an Azure Active Directory object.
 The directoryObject type is the base type for many other directory entity types.
 .Example
-PS C:\> Get-AzADGroup -DisplayName $gname
+Get-AzADGroup -DisplayName $gname
 .Example
-PS C:\> Get-AzADGroup -First 10
+Get-AzADGroup -First 10
 .Example
-PS C:\> Get-AzADGroup -ObjectId $id -Select groupTypes -AppendSelected
+Get-AzADGroup -ObjectId $id -Select groupTypes -AppendSelected
+.Example
+Get-AzADGroup -Filter "startsWith(DisplayName,'some-name')"
 
 .Outputs
 Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphGroup
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/get-azadgroup
+https://learn.microsoft.com/powershell/module/az.resources/get-azadgroup
 #>
 function Get-AzADGroup {
 [OutputType([Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphGroup])]
@@ -157,9 +159,10 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
         $mapping = @{
-            Get = 'Az.Resources.MSGraph.private\Get-AzADGroup_Get';
-            List = 'Az.Resources.MSGraph.private\Get-AzADGroup_List';
+            Get = 'Az.MSGraph.private\Get-AzADGroup_Get';
+            List = 'Az.MSGraph.private\Get-AzADGroup_List';
         }
 
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
@@ -167,6 +170,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+
         throw
     }
 }
@@ -175,15 +179,18 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+
         throw
     }
-}
 
+}
 end {
     try {
         $steppablePipeline.End()
+
     } catch {
+
         throw
     }
-}
+} 
 }

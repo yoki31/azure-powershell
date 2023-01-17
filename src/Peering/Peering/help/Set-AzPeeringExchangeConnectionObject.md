@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/set-azpeeringexchangeconnectionobject
+online version: https://learn.microsoft.com/powershell/module/az.peering/set-azpeeringexchangeconnectionobject
 schema: 2.0.0
 ---
 
@@ -35,16 +35,16 @@ Used in conjunction with Update-AzPeering, this is an in memory operation and wi
 
 ## EXAMPLES
 
-### Update Md5 Hash
+### Example 1: Update Md5 Hash
 ```powershell
-PS C:> $update = Get-AzPeering -PeerName "ContosoPeering" -ResourceGroupName rg1 | Set-AzPeeringExchangeConnectionObject -MD5AuthenticationKey $hash
+$update = Get-AzPeering -Name "ContosoPeering" -ResourceGroupName rg1 | Set-AzPeeringExchangeConnectionObject -MD5AuthenticationKey $hash
 ```
 
 Updates the Md5 Hash for the first connection in the Peering object in memory. 
 
-### Update Bgp Session Address
+### Example 2: Update Bgp Session Address
 ```powershell
-PS C:> $update = Get-AzPeering -PeerName "ContosoPeering" -ResourceGroupName rg1 | Set-AzPeeringExchangeConnectionObject -PeerSessionIPv4Address "192.168.0.1" -MaxPrefixesAdvertisedIPv4 20000
+$update = Get-AzPeering -Name "ContosoPeering" -ResourceGroupName rg1 | Set-AzPeeringExchangeConnectionObject -PeerSessionIPv4Address "192.168.0.1" -MaxPrefixesAdvertisedIPv4 20000
 ```
 
 Updates the Peering Address for the first connection in the Peering object in memory. 

@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/remove-azpeering
+online version: https://learn.microsoft.com/powershell/module/az.peering/remove-azpeering
 schema: 2.0.0
 ---
 
@@ -37,7 +37,7 @@ Perminently delete a peering resource.
 
 ### Example 1
 ```powershell
-PS C:\> Remove-AzPeering -ResourceId $resourceId
+Remove-AzPeering -ResourceId $resourceId
 ```
 
 Remove a peering by resource id.

@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/get-azpeerasn
+online version: https://learn.microsoft.com/powershell/module/az.peering/get-azpeerasn
 schema: 2.0.0
 ---
 
@@ -29,8 +29,10 @@ Gets the PeerAsn for a subscription.
 
 ### Example 1
 ```powershell
-PS C:> Get-AzPeerAsn -Name Contoso
+Get-AzPeerAsn -Name Contoso
+```
 
+```output
 PeerContactInfo : Microsoft.Azure.PowerShell.Cmdlets.Peering.Models.PSContactInfo
 PeerName        : Contoso
 ValidationState : None

@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.Management.dll-Help.xml
 Module Name: Az.Storage
-online version: https://docs.microsoft.com/powershell/module/az.storage/lock-azrmstoragecontainerimmutabilitypolicy
+online version: https://learn.microsoft.com/powershell/module/az.storage/lock-azrmstoragecontainerimmutabilitypolicy
 schema: 2.0.0
 ---
 
@@ -61,7 +61,7 @@ This command locks ImmutabilityPolicy of a Storage blob container, with Storage 
 
 ### Example 3: Lock ImmutabilityPolicyof a Storage blob container, with container object
 ```
-PS C:\>$containerObject = Get-AzStorageContainer -ResourceGroupName "myResourceGroup" -AccountName "myStorageAccount" -Name "myContainer"
+PS C:\>$containerObject = Get-AzRmStorageContainer -ResourceGroupName "myResourceGroup" -AccountName "myStorageAccount" -Name "myContainer"
 PS C:\>$policy = Get-AzRmStorageContainerImmutabilityPolicy -Container $containerObject
 PS C:\>Lock-AzRmStorageContainerImmutabilityPolicy -Container $containerObject -Etag $policy.Etag -Force
 ```

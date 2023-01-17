@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.Management.dll-Help.xml
 Module Name: Az.Storage
-online version: https://docs.microsoft.com/powershell/module/az.storage/remove-azrmstoragecontainerlegalhold
+online version: https://learn.microsoft.com/powershell/module/az.storage/remove-azrmstoragecontainerlegalhold
 schema: 2.0.0
 ---
 
@@ -53,7 +53,7 @@ This command removes legal hold tags from a Storage blob container with Storage 
 
 ### Example 3: Remove legal hold tags from all Storage blob containers in a Storage account with pipeline
 ```
-PS C:\>Get-AzStorageContainer -ResourceGroupName "myResourceGroup" -AccountName "myStorageAccount" | Remove-AzRmStorageContainerLegalHold -Tag  tag1
+PS C:\>Get-AzRmStorageContainer -ResourceGroupName "myResourceGroup" -AccountName "myStorageAccount" | Remove-AzRmStorageContainerLegalHold -Tag  tag1
 ```
 
 This command removes legal hold tags from all Storage blob containers in a Storage account with pipeline.

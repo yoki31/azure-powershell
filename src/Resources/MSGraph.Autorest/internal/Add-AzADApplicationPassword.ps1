@@ -20,13 +20,9 @@ Invoke action addPassword
 .Description
 Invoke action addPassword
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+{{ Add code here }}
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+{{ Add code here }}
 
 .Inputs
 Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IPaths141Ryo0ApplicationsApplicationIdMicrosoftGraphAddpasswordPostRequestbodyContentApplicationJsonSchema
@@ -55,7 +51,7 @@ PASSWORDCREDENTIAL <IMicrosoftGraphPasswordCredential>: passwordCredential
   [KeyId <String>]: The unique identifier for the password.
   [StartDateTime <DateTime?>]: The date and time at which the password becomes valid. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Optional.
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/add-azadapplicationpassword
+https://learn.microsoft.com/powershell/module/az.resources/add-azadapplicationpassword
 #>
 function Add-AzADApplicationPassword {
 [OutputType([Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphPasswordCredential])]
@@ -142,9 +138,10 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
         $mapping = @{
-            Add = 'Az.Resources.MSGraph.private\Add-AzADApplicationPassword_Add';
-            AddExpanded = 'Az.Resources.MSGraph.private\Add-AzADApplicationPassword_AddExpanded';
+            Add = 'Az.MSGraph.private\Add-AzADApplicationPassword_Add';
+            AddExpanded = 'Az.MSGraph.private\Add-AzADApplicationPassword_AddExpanded';
         }
 
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
@@ -152,6 +149,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+
         throw
     }
 }
@@ -160,15 +158,18 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+
         throw
     }
-}
 
+}
 end {
     try {
         $steppablePipeline.End()
+
     } catch {
+
         throw
     }
-}
+} 
 }

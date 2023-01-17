@@ -1,7 +1,7 @@
 ---
-external help file:
+external help file: Az.Resources-help.xml
 Module Name: Az.Resources
-online version: https://docs.microsoft.com/powershell/module/az.resources/new-azadspcredential
+online version: https://learn.microsoft.com/powershell/module/az.resources/new-azadspcredential
 schema: 2.0.0
 ---
 
@@ -14,60 +14,78 @@ Creates key credentials or password credentials for an service principal.
 
 ### SpObjectIdWithPasswordParameterSet (Default)
 ```
-New-AzADSpCredential -ObjectId <String> [-EndDate <DateTime>] [-StartDate <DateTime>]
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### ServicePrincipalObjectWithCertValueParameterSet
-```
-New-AzADSpCredential -CertValue <String> -ServicePrincipalObject <IMicrosoftGraphServicePrincipal>
- [-EndDate <DateTime>] [-StartDate <DateTime>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
- [<CommonParameters>]
-```
-
-### ServicePrincipalObjectWithCredentialParameterSet
-```
-New-AzADSpCredential -ServicePrincipalObject <IMicrosoftGraphServicePrincipal>
- [-KeyCredentials <MicrosoftGraphKeyCredential[]>] [-PasswordCredentials <MicrosoftGraphPasswordCredential[]>]
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### ServicePrincipalObjectWithPasswordParameterSet
-```
-New-AzADSpCredential -ServicePrincipalObject <IMicrosoftGraphServicePrincipal> [-EndDate <DateTime>]
- [-StartDate <DateTime>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### SPNWithCertValueParameterSet
-```
-New-AzADSpCredential -CertValue <String> -ServicePrincipalName <String> [-EndDate <DateTime>]
- [-StartDate <DateTime>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
-```
-
-### SPNWithCredentialParameterSet
-```
-New-AzADSpCredential -ServicePrincipalName <String> [-KeyCredentials <MicrosoftGraphKeyCredential[]>]
- [-PasswordCredentials <MicrosoftGraphPasswordCredential[]>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
- [<CommonParameters>]
-```
-
-### SPNWithPasswordParameterSet
-```
-New-AzADSpCredential -ServicePrincipalName <String> [-EndDate <DateTime>] [-StartDate <DateTime>]
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+New-AzADSpCredential -ObjectId <String> [-StartDate <DateTime>] [-EndDate <DateTime>]
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### SpObjectIdWithCertValueParameterSet
 ```
-New-AzADSpCredential -CertValue <String> -ObjectId <String> [-EndDate <DateTime>] [-StartDate <DateTime>]
- [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf] [<CommonParameters>]
+New-AzADSpCredential -ObjectId <String> [-StartDate <DateTime>] [-EndDate <DateTime>] -CertValue <String>
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### SpObjectIdWithCredentialParameterSet
+### SpObjectIdWithKeyCredentialParameterSet
 ```
-New-AzADSpCredential -ObjectId <String> [-KeyCredentials <MicrosoftGraphKeyCredential[]>]
- [-PasswordCredentials <MicrosoftGraphPasswordCredential[]>] [-DefaultProfile <PSObject>] [-Confirm] [-WhatIf]
+New-AzADSpCredential -ObjectId <String> -KeyCredentials <MicrosoftGraphKeyCredential[]>
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### SpObjectIdWithPasswordCredentialParameterSet
+```
+New-AzADSpCredential -ObjectId <String> -PasswordCredentials <MicrosoftGraphPasswordCredential[]>
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ServicePrincipalObjectWithCertValueParameterSet
+```
+New-AzADSpCredential [-StartDate <DateTime>] [-EndDate <DateTime>] -CertValue <String>
+ -ServicePrincipalObject <IMicrosoftGraphServicePrincipal> [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
+```
+
+### ServicePrincipalObjectWithPasswordParameterSet
+```
+New-AzADSpCredential [-StartDate <DateTime>] [-EndDate <DateTime>]
+ -ServicePrincipalObject <IMicrosoftGraphServicePrincipal> [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### SPNWithCertValueParameterSet
+```
+New-AzADSpCredential [-StartDate <DateTime>] [-EndDate <DateTime>] -CertValue <String>
+ -ServicePrincipalName <String> [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### SPNWithPasswordParameterSet
+```
+New-AzADSpCredential [-StartDate <DateTime>] [-EndDate <DateTime>] -ServicePrincipalName <String>
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ServicePrincipalObjectWithPasswordCredentialParameterSet
+```
+New-AzADSpCredential -PasswordCredentials <MicrosoftGraphPasswordCredential[]>
+ -ServicePrincipalObject <IMicrosoftGraphServicePrincipal> [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### SPNWithPasswordCredentialParameterSet
+```
+New-AzADSpCredential -PasswordCredentials <MicrosoftGraphPasswordCredential[]> -ServicePrincipalName <String>
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ServicePrincipalObjectWithKeyCredentialParameterSet
+```
+New-AzADSpCredential -KeyCredentials <MicrosoftGraphKeyCredential[]>
+ -ServicePrincipalObject <IMicrosoftGraphServicePrincipal> [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
+### SPNWithKeyCredentialParameterSet
+```
+New-AzADSpCredential -KeyCredentials <MicrosoftGraphKeyCredential[]> -ServicePrincipalName <String>
+ [-DefaultProfile <PSObject>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -77,19 +95,19 @@ Creates key credentials or password credentials for an service principal.
 
 ### Example 1: Create key credentials for service principal
 ```powershell
-PS C:\> $credential = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential" `
+$credential = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential" `
                                  -Property @{'Key' = $cert;
                                  'Usage'       = 'Verify'; 
                                  'Type'        = 'AsymmetricX509Cert'
                                  }
-PS C:\> New-AzADSpCredential -ObjectId $Id -KeyCredentials $credential
+New-AzADSpCredential -ObjectId $Id -KeyCredentials $credential
 ```
 
 Create key credentials for service principal
 
 ### Example 2: Create password credentials for service principal
 ```powershell
-PS C:\> Get-AzADServicePrincipal -ApplicationId $appId | New-AzADSpCredential -StartDate $startDate -EndDate $endDate
+Get-AzADServicePrincipal -ApplicationId $appId | New-AzADSpCredential -StartDate $startDate -EndDate $endDate
 ```
 
 Create password credentials for service principal
@@ -102,7 +120,7 @@ It represents the base 64 encoded certificate.
 
 ```yaml
 Type: System.String
-Parameter Sets: ServicePrincipalObjectWithCertValueParameterSet, SPNWithCertValueParameterSet, SpObjectIdWithCertValueParameterSet
+Parameter Sets: SpObjectIdWithCertValueParameterSet, ServicePrincipalObjectWithCertValueParameterSet, SPNWithCertValueParameterSet
 Aliases:
 
 Required: True
@@ -134,7 +152,7 @@ For an 'asymmetric' type credential, this must be set to on or before the date t
 
 ```yaml
 Type: System.DateTime
-Parameter Sets: ServicePrincipalObjectWithCertValueParameterSet, ServicePrincipalObjectWithPasswordParameterSet, SPNWithCertValueParameterSet, SPNWithPasswordParameterSet, SpObjectIdWithCertValueParameterSet, SpObjectIdWithPasswordParameterSet
+Parameter Sets: SpObjectIdWithPasswordParameterSet, SpObjectIdWithCertValueParameterSet, ServicePrincipalObjectWithCertValueParameterSet, ServicePrincipalObjectWithPasswordParameterSet, SPNWithCertValueParameterSet, SPNWithPasswordParameterSet
 Aliases:
 
 Required: False
@@ -150,10 +168,10 @@ To construct, see NOTES section for KEYCREDENTIALS properties and create a hash 
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphKeyCredential[]
-Parameter Sets: ServicePrincipalObjectWithCredentialParameterSet, SPNWithCredentialParameterSet, SpObjectIdWithCredentialParameterSet
+Parameter Sets: SpObjectIdWithKeyCredentialParameterSet, ServicePrincipalObjectWithKeyCredentialParameterSet, SPNWithKeyCredentialParameterSet
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -165,7 +183,7 @@ The object Id of application.
 
 ```yaml
 Type: System.String
-Parameter Sets: SpObjectIdWithCertValueParameterSet, SpObjectIdWithCredentialParameterSet, SpObjectIdWithPasswordParameterSet
+Parameter Sets: SpObjectIdWithPasswordParameterSet, SpObjectIdWithCertValueParameterSet, SpObjectIdWithKeyCredentialParameterSet, SpObjectIdWithPasswordCredentialParameterSet
 Aliases: Id, ServicePrincipalObjectId
 
 Required: True
@@ -181,10 +199,10 @@ To construct, see NOTES section for PASSWORDCREDENTIALS properties and create a 
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphPasswordCredential[]
-Parameter Sets: ServicePrincipalObjectWithCredentialParameterSet, SPNWithCredentialParameterSet, SpObjectIdWithCredentialParameterSet
+Parameter Sets: SpObjectIdWithPasswordCredentialParameterSet, ServicePrincipalObjectWithPasswordCredentialParameterSet, SPNWithPasswordCredentialParameterSet
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -196,7 +214,7 @@ The service principal name.
 
 ```yaml
 Type: System.String
-Parameter Sets: SPNWithCertValueParameterSet, SPNWithCredentialParameterSet, SPNWithPasswordParameterSet
+Parameter Sets: SPNWithCertValueParameterSet, SPNWithPasswordParameterSet, SPNWithPasswordCredentialParameterSet, SPNWithKeyCredentialParameterSet
 Aliases: SPN
 
 Required: True
@@ -212,7 +230,7 @@ To construct, see NOTES section for SERVICEPRINCIPALOBJECT properties and create
 
 ```yaml
 Type: Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphServicePrincipal
-Parameter Sets: ServicePrincipalObjectWithCertValueParameterSet, ServicePrincipalObjectWithCredentialParameterSet, ServicePrincipalObjectWithPasswordParameterSet
+Parameter Sets: ServicePrincipalObjectWithCertValueParameterSet, ServicePrincipalObjectWithPasswordParameterSet, ServicePrincipalObjectWithPasswordCredentialParameterSet, ServicePrincipalObjectWithKeyCredentialParameterSet
 Aliases:
 
 Required: True
@@ -229,7 +247,7 @@ For an 'asymmetric' type credential, this must be set to on or after the date th
 
 ```yaml
 Type: System.DateTime
-Parameter Sets: ServicePrincipalObjectWithCertValueParameterSet, ServicePrincipalObjectWithPasswordParameterSet, SPNWithCertValueParameterSet, SPNWithPasswordParameterSet, SpObjectIdWithCertValueParameterSet, SpObjectIdWithPasswordParameterSet
+Parameter Sets: SpObjectIdWithPasswordParameterSet, SpObjectIdWithCertValueParameterSet, ServicePrincipalObjectWithCertValueParameterSet, ServicePrincipalObjectWithPasswordParameterSet, SPNWithCertValueParameterSet, SPNWithPasswordParameterSet
 Aliases:
 
 Required: False
@@ -294,7 +312,7 @@ COMPLEX PARAMETER PROPERTIES
 To create the parameters described below, construct a hash table containing the appropriate properties. For information on hash tables, run Get-Help about_Hash_Tables.
 
 
-KEYCREDENTIALS <MicrosoftGraphKeyCredential[]>: key credentials associated with the service principal.
+`KEYCREDENTIALS <MicrosoftGraphKeyCredential[]>`: key credentials associated with the service principal.
   - `[CustomKeyIdentifier <Byte[]>]`: Custom key identifier
   - `[DisplayName <String>]`: Friendly name for the key. Optional.
   - `[EndDateTime <DateTime?>]`: The date and time at which the credential expires.The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z
@@ -304,16 +322,16 @@ KEYCREDENTIALS <MicrosoftGraphKeyCredential[]>: key credentials associated with 
   - `[Type <String>]`: The type of key credential; for example, 'Symmetric'.
   - `[Usage <String>]`: A string that describes the purpose for which the key can be used; for example, 'Verify'.
 
-PASSWORDCREDENTIALS <MicrosoftGraphPasswordCredential[]>: Password credentials associated with the service principal.
+`PASSWORDCREDENTIALS <MicrosoftGraphPasswordCredential[]>`: Password credentials associated with the service principal.
   - `[CustomKeyIdentifier <Byte[]>]`: Do not use.
   - `[DisplayName <String>]`: Friendly name for the password. Optional.
   - `[EndDateTime <DateTime?>]`: The date and time at which the password expires represented using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Optional.
   - `[KeyId <String>]`: The unique identifier for the password.
   - `[StartDateTime <DateTime?>]`: The date and time at which the password becomes valid. The Timestamp type represents date and time information using ISO 8601 format and is always in UTC time. For example, midnight UTC on Jan 1, 2014 is 2014-01-01T00:00:00Z. Optional.
 
-SERVICEPRINCIPALOBJECT <IMicrosoftGraphServicePrincipal>: The service principal object, could be used as pipeline input.
+`SERVICEPRINCIPALOBJECT <IMicrosoftGraphServicePrincipal>`: The service principal object, could be used as pipeline input.
   - `[(Any) <Object>]`: This indicates any property can be added to this object.
-  - `[DeletedDateTime <DateTime?>]`: 
+  - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
   - `[DisplayName <String>]`: The name displayed in directory
   - `[AccountEnabled <Boolean?>]`: true if the service principal account is enabled; otherwise, false. Supports $filter (eq, ne, NOT, in).
   - `[AddIn <IMicrosoftGraphAddIn[]>]`: Defines custom behavior that a consuming service can use to call an app in specific contexts. For example, applications that can render file streams may set the addIns property for its 'FileHandler' functionality. This will let services like Microsoft 365 call the application in the context of a document the user is working on.
@@ -335,7 +353,7 @@ SERVICEPRINCIPALOBJECT <IMicrosoftGraphServicePrincipal>: The service principal 
     - `[IsEnabled <Boolean?>]`: When creating or updating an app role, this must be set to true (which is the default). To delete a role, this must first be set to false.  At that point, in a subsequent call, this role may be removed.
     - `[Value <String>]`: Specifies the value to include in the roles claim in ID tokens and access tokens authenticating an assigned user or service principal. Must not exceed 120 characters in length. Allowed characters are : ! # $ % & ' ( ) * + , - . / : ;  =  ? @ [ ] ^ + _  {  } ~, as well as characters in the ranges 0-9, A-Z and a-z. Any other character, including the space character, are not allowed. May not begin with ..
   - `[AppRoleAssignedTo <IMicrosoftGraphAppRoleAssignment[]>]`: App role assignments for this app or service, granted to users, groups, and other service principals.Supports $expand.
-    - `[DeletedDateTime <DateTime?>]`: 
+    - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     - `[DisplayName <String>]`: The name displayed in directory
     - `[AppRoleId <String>]`: The identifier (id) for the app role which is assigned to the principal. This app role must be exposed in the appRoles property on the resource application's service principal (resourceId). If the resource application has not declared any app roles, a default app role ID of 00000000-0000-0000-0000-000000000000 can be specified to signal that the principal is assigned to the resource app without any specific app roles. Required on create.
     - `[PrincipalId <String>]`: The unique identifier (id) for the user, group or service principal being granted the app role. Required on create.
@@ -345,12 +363,12 @@ SERVICEPRINCIPALOBJECT <IMicrosoftGraphServicePrincipal>: The service principal 
   - `[AppRoleAssignmentRequired <Boolean?>]`: Specifies whether users or other service principals need to be granted an app role assignment for this service principal before users can sign in or apps can get tokens. The default value is false. Not nullable. Supports $filter (eq, ne, NOT).
   - `[ClaimsMappingPolicy <IMicrosoftGraphClaimsMappingPolicy[]>]`: The claimsMappingPolicies assigned to this service principal. Supports $expand.
     - `[AppliesTo <IMicrosoftGraphDirectoryObject[]>]`: 
-      - `[DeletedDateTime <DateTime?>]`: 
+      - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
       - `[DisplayName <String>]`: The name displayed in directory
     - `[Definition <String[]>]`: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     - `[IsOrganizationDefault <Boolean?>]`: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     - `[Description <String>]`: Description for this policy.
-    - `[DeletedDateTime <DateTime?>]`: 
+    - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     - `[DisplayName <String>]`: The name displayed in directory
   - `[DelegatedPermissionClassification <IMicrosoftGraphDelegatedPermissionClassification[]>]`: The permission classifications for delegated permissions exposed by the app that this service principal represents. Supports $expand.
     - `[Classification <String>]`: permissionClassificationType
@@ -359,14 +377,20 @@ SERVICEPRINCIPALOBJECT <IMicrosoftGraphServicePrincipal>: The service principal 
   - `[Description <String>]`: Free text field to provide an internal end-user facing description of the service principal. End-user portals such MyApps will display the application description in this field. The maximum allowed size is 1024 characters. Supports $filter (eq, ne, NOT, ge, le, startsWith) and $search.
   - `[DisabledByMicrosoftStatus <String>]`: Specifies whether Microsoft has disabled the registered application. Possible values are: null (default value), NotDisabled, and DisabledDueToViolationOfServicesAgreement (reasons may include suspicious, abusive, or malicious activity, or a violation of the Microsoft Services Agreement).  Supports $filter (eq, ne, NOT).
   - `[Endpoint <IMicrosoftGraphEndpoint[]>]`: Endpoints available for discovery. Services like Sharepoint populate this property with a tenant specific SharePoint endpoints that other applications can discover and use in their experiences.
-    - `[DeletedDateTime <DateTime?>]`: 
+    - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     - `[DisplayName <String>]`: The name displayed in directory
+  - `[FederatedIdentityCredentials <IMicrosoftGraphFederatedIdentityCredential[]>]`: 
+    - `[Audience <String[]>]`: Lists the audiences that can appear in the external token. This field is mandatory, and defaults to 'api://AzureADTokenExchange'. It says what Microsoft identity platform should accept in the aud claim in the incoming token. This value represents Azure AD in your external identity provider and has no fixed value across identity providers - you may need to create a new application registration in your identity provider to serve as the audience of this token. Required.
+    - `[Description <String>]`: The un-validated, user-provided description of the federated identity credential. Optional.
+    - `[Issuer <String>]`: The URL of the external identity provider and must match the issuer claim of the external token being exchanged. The combination of the values of issuer and subject must be unique on the app. Required.
+    - `[Name <String>]`: is the unique identifier for the federated identity credential, which has a character limit of 120 characters and must be URL friendly. It is immutable once created. Required. Not nullable. Supports $filter (eq).
+    - `[Subject <String>]`: Required. The identifier of the external software workload within the external identity provider. Like the audience value, it has no fixed format, as each identity provider uses their own - sometimes a GUID, sometimes a colon delimited identifier, sometimes arbitrary strings. The value here must match the sub claim within the token presented to Azure AD. The combination of issuer and subject must be unique on the app. Supports $filter (eq).
   - `[HomeRealmDiscoveryPolicy <IMicrosoftGraphHomeRealmDiscoveryPolicy[]>]`: The homeRealmDiscoveryPolicies assigned to this service principal. Supports $expand.
     - `[AppliesTo <IMicrosoftGraphDirectoryObject[]>]`: 
     - `[Definition <String[]>]`: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     - `[IsOrganizationDefault <Boolean?>]`: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     - `[Description <String>]`: Description for this policy.
-    - `[DeletedDateTime <DateTime?>]`: 
+    - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     - `[DisplayName <String>]`: The name displayed in directory
   - `[Homepage <String>]`: Home page or landing page of the application.
   - `[Info <IMicrosoftGraphInformationalUrl>]`: informationalUrl
@@ -419,16 +443,17 @@ SERVICEPRINCIPALOBJECT <IMicrosoftGraphServicePrincipal>: The service principal 
     - `[Definition <String[]>]`: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     - `[IsOrganizationDefault <Boolean?>]`: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     - `[Description <String>]`: Description for this policy.
-    - `[DeletedDateTime <DateTime?>]`: 
+    - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     - `[DisplayName <String>]`: The name displayed in directory
   - `[TokenLifetimePolicy <IMicrosoftGraphTokenLifetimePolicy[]>]`: The tokenLifetimePolicies assigned to this service principal. Supports $expand.
     - `[AppliesTo <IMicrosoftGraphDirectoryObject[]>]`: 
     - `[Definition <String[]>]`: A string collection containing a JSON string that defines the rules and settings for a policy. The syntax for the definition differs for each derived policy type. Required.
     - `[IsOrganizationDefault <Boolean?>]`: If set to true, activates this policy. There can be many policies for the same policy type, but only one can be activated as the organization default. Optional, default value is false.
     - `[Description <String>]`: Description for this policy.
-    - `[DeletedDateTime <DateTime?>]`: 
+    - `[DeletedDateTime <DateTime?>]`: Date and time when this object was deleted. Always null when the object hasn't been deleted.
     - `[DisplayName <String>]`: The name displayed in directory
   - `[TransitiveMemberOf <IMicrosoftGraphDirectoryObject[]>]`: 
 
 ## RELATED LINKS
 
+## RELATED LINKS

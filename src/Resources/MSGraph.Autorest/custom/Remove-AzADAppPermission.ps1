@@ -16,19 +16,8 @@
 Removes an API permission.
 .Description
 Removes an API permission.
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-
-.Outputs
-System.Boolean
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/remove-azadapppermission
+https://learn.microsoft.com/powershell/module/az.resources/remove-azadapppermission
 #>
 
 function Remove-AzADAppPermission {
@@ -95,7 +84,7 @@ function Remove-AzADAppPermission {
     process {
         switch ($PSCmdlet.ParameterSetName) {
             'ObjectIdParameterSet' {
-                $app = MSGraph.internal\Get-AzADApplication -Id $PSBoundParameters['ObjectId']
+                $app = Az.MSGraph.internal\Get-AzADApplication -Id $PSBoundParameters['ObjectId']
                 if($null -eq $app) {
                     Write-Error "Cannot find application by ObjectId $($PSBoundParameters['ObjectId'])"
                 }

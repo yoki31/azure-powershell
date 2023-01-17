@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.Management.dll-Help.xml
 Module Name: Az.Storage
-online version: https://docs.microsoft.com/powershell/module/az.storage/remove-azrmstorageshare
+online version: https://learn.microsoft.com/powershell/module/az.storage/remove-azrmstorageshare
 schema: 2.0.0
 ---
 
@@ -72,7 +72,7 @@ This command removes a Storage file share with Storage account object and share 
 
 ### Example 3: Remove all Storage file shares in a Storage account with pipeline
 ```
-PS C:\>Get-AzStorageShare -ResourceGroupName "myResourceGroup" -StorageAccountName "myStorageAccount" | Remove-AzRmStorageShare -Force
+PS C:\>Get-AzRmStorageShare -ResourceGroupName "myResourceGroup" -StorageAccountName "myStorageAccount" | Remove-AzRmStorageShare -Force
 ```
 
 This command removes all Storage file shares in a Storage account with pipeline.

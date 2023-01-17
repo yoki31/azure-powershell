@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/remove-azpeeringregisteredasn
+online version: https://learn.microsoft.com/powershell/module/az.peering/remove-azpeeringregisteredasn
 schema: 2.0.0
 ---
 
@@ -37,7 +37,7 @@ Allows the removal of registered ASN from parent peering resource.
 
 ### Example 1
 ```powershell
-PS C:\> Remove-AzPeeringRegisteredAsn -ResourceId $resourceId
+Remove-AzPeeringRegisteredAsn -ResourceId $resourceId
 ```
 
 Remove a registerd ASN by resource id.

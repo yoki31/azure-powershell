@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/get-azpeeringcdnpeeringprefix
+online version: https://learn.microsoft.com/powershell/module/az.peering/get-azpeeringcdnpeeringprefix
 schema: 2.0.0
 ---
 
@@ -24,7 +24,7 @@ Lists all of the advertised prefixes for cdn in the specified peering location
 
 ### Example 1
 ```powershell
-PS C:\> Get-AzPeeringCdnPeeringPrefix -PeeringLocation "Seattle"
+Get-AzPeeringCdnPeeringPrefix -PeeringLocation "Seattle"
 ```
 
 Lists all of the advertised prefixes for cdn in the specified physical peering location

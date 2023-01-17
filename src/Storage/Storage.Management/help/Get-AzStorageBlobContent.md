@@ -2,7 +2,7 @@
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.dll-Help.xml
 Module Name: Az.Storage
 ms.assetid: C091D654-E113-4AE0-A6C8-24630D1294A4
-online version: https://docs.microsoft.com/powershell/module/az.storage/get-azstorageblobcontent
+online version: https://learn.microsoft.com/powershell/module/az.storage/get-azstorageblobcontent
 schema: 2.0.0
 ---
 
@@ -37,6 +37,14 @@ Get-AzStorageBlobContent -CloudBlobContainer <CloudBlobContainer> [-Blob] <Strin
  [-ServerTimeoutPerRequest <Int32>] [-ClientTimeoutPerRequest <Int32>]
  [-DefaultProfile <IAzureContextContainer>] [-ConcurrentTaskCount <Int32>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
+```
+
+### UriPipeline
+```
+Get-AzStorageBlobContent [-Destination <String>] -AbsoluteUri <String> [-Force] [-AsJob]
+ [-TagCondition <String>] [-Context <IStorageContext>] [-ServerTimeoutPerRequest <Int32>]
+ [-ClientTimeoutPerRequest <Int32>] [-DefaultProfile <IAzureContextContainer>] [-ConcurrentTaskCount <Int32>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -74,7 +82,30 @@ PS C:\>Get-AzStorageBlobContent -CloudBlob $blob.ICloudBlob -Destination "C:\tes
 
 This example first get a blob object and save it in a variable, then download blob content with the blob object. 
 
+### Example 5: Download a blob content with blob Uri
+```
+PS C:\>Get-AzStorageBlobContent -Uri $blobUri -Destination "C:\test" -Force
+```
+
+This example will download a blob content with Uri, the Uri can be a Uri with Sas token. 
+If the blob is on a managed disk account, and server requires a bearer token besides Sas Uri to download, the cmdlet will try to generate a bearer token with server returned audience and the login AAD user credentail, then download blob with both Sas Uri and bearer token.
+
 ## PARAMETERS
+
+### -AbsoluteUri
+Blob uri to download from.
+
+```yaml
+Type: System.String
+Parameter Sets: UriPipeline
+Aliases: Uri, BlobUri
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
 
 ### -AsJob
 Run cmdlet in the background.
@@ -126,7 +157,7 @@ Specifies whether to check the Md5 sum for the downloaded file.
 
 ```yaml
 Type: System.Management.Automation.SwitchParameter
-Parameter Sets: (All)
+Parameter Sets: ReceiveManual, BlobPipeline, ContainerPipeline
 Aliases:
 
 Required: False
@@ -345,7 +376,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

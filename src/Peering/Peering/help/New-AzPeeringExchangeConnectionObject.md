@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/new-azpeeringexchangeconnectionobject
+online version: https://learn.microsoft.com/powershell/module/az.peering/new-azpeeringexchangeconnectionobject
 schema: 2.0.0
 ---
 
@@ -40,8 +40,10 @@ Creates an in memory PSObject
 
 ### Example 1
 ```powershell
-PS C:> $exconnection = New-AzPeeringExchangeConnectionObject -PeeringDBFacilityId 99999 -PeerSessionIPv4Address 10.3.151.99 -MaxPrefixesAdvertisedIPv4 20000 -MD5AuthenticationKey 25234523452123411fd234qdwfas3234
+$exconnection = New-AzPeeringExchangeConnectionObject -PeeringDBFacilityId 99999 -PeerSessionIPv4Address 10.3.151.99 -MaxPrefixesAdvertisedIPv4 20000 -MD5AuthenticationKey 25234523452123411fd234qdwfas3234
+```
 
+```output
 PeeringDBFacilityId     : 99999
 PeerSessionIPv4Address  : 10.3.151.99
 MaxPrefixesAdvertisedV4 : 20000

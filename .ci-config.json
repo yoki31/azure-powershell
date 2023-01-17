@@ -22,7 +22,7 @@
       "phases": [
         "build:all",
         "breaking-change:all",
-        "dependence:all",
+        "dependency:all",
         "help:all",
         "signature:all",
         "test:all",
@@ -35,7 +35,7 @@
       ],
       "phases": [
         "build:all",
-        "dependence:all",
+        "dependency:all",
         "test:all"
       ]
     },
@@ -45,7 +45,7 @@
       ],
       "phases": [
         "build:all",
-        "dependence:all"
+        "dependency:all"
       ]
     },
     {
@@ -60,9 +60,10 @@
         "CONTRIBUTION.md",
         "LICENSE.txt",
         "README.md",
-        "**/ChangeLog.md",
-        "**/readme.md",
-        "src/**/document/*",
+        "ChangeLog.md",
+        "*/ChangeLog.md",
+        "*/readme.md",
+        "src/*/document/*",
         ".ci-config.json",
         "tools/PrepareAutorestModule.ps1",
         "tools/SyncFromMainBranch.ps1",
@@ -83,21 +84,23 @@
     },
     {
       "patterns": [
-        "src/{ModuleName}/**/*.md$"
+        "src/{ModuleName}/*/*.md$"
       ],
       "phases": [
         "build:module",
-        "help:module"
+        "help:module",
+        "example:module"
       ]
     },
     {
       "patterns": [
-        "src/{ModuleName}/**/*.csproj$"
+        "src/{ModuleName}/*/*.csproj$"
       ],
       "phases": [
         "build:related-module",
-        "dependence:dependence-module",
-        "test:dependence-module"
+        "dependency:dependence-module",
+        "test:dependence-module",
+        "file-change:module"
       ]
     },
     {
@@ -109,7 +112,9 @@
         "breaking-change:module",
         "help:module",
         "signature:module",
-        "test:dependence-module"
+        "test:dependence-module",
+        "file-change:module",
+        "ux:module"
       ]
     },
     {
@@ -121,7 +126,7 @@
       ],
       "phases": [
         "build:module",
-        "dependence:module"
+        "dependency:module"
       ]
     },
     {
@@ -159,7 +164,7 @@
       "phases": [
         "build:all",
         "breaking-change:all",
-        "dependence:all",
+        "dependency:all",
         "help:all",
         "signature:all"
       ]
@@ -189,7 +194,7 @@
       "phases": [
         "build:all",
         "breaking-change:all",
-        "dependence:all",
+        "dependency:all",
         "help:all",
         "signature:all",
         "test:all"
@@ -211,7 +216,7 @@
       ],
       "phases": [
         "build:all",
-        "dependence:all"
+        "dependency:all"
       ]
     },
     {
@@ -277,11 +282,27 @@
       "phases": [
         "build:all",
         "breaking-change:all",
-        "dependence:all",
+        "dependency:all",
         "help:all",
         "signature:all",
         "test:all"
       ]
     }
-  ]
+  ],
+  "selectModuleList": [
+    "Accounts",
+    "Aks",
+    "ApplicationInsights",
+    "Compute",
+    "Functions",
+    "KeyVault",
+    "KubernetersConfiguration",
+    "Network",
+    "PostgreSql",
+    "Purview",
+    "Resources",
+    "Storage",
+    "Websites"
+  ],
+  "artifactPipelineInfoFolder": "artifacts/PipelineResult"
 }

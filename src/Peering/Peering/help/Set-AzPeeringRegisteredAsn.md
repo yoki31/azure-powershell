@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/set-azpeeringregisteredasn
+online version: https://learn.microsoft.com/powershell/module/az.peering/set-azpeeringregisteredasn
 schema: 2.0.0
 ---
 
@@ -37,7 +37,7 @@ Allows the updating of a registered ASN from parent peering resource.
 
 ### Example 1
 ```powershell
-PS C:\> Set-AzPeeringRegisteredAsn -ResourceId $resourceId -Asn $asn
+Set-AzPeeringRegisteredAsn -ResourceId $resourceId -Asn $asn
 ```
 
 Updates the ASN by resource id.

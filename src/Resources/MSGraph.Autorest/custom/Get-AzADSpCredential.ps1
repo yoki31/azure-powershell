@@ -18,28 +18,14 @@
 Lists key credentials and password credentials for an service principal.
 .Description
 Lists key credentials and password credentials for an service principal.
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-
-.Inputs
-Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphServiceprincipal
-.Outputs
-Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphKeyCredential
-Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphPasswordCredential
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/get-azadspcredential
+https://learn.microsoft.com/powershell/module/az.resources/get-azadspcredential
 #>
 
 function Get-AzADSpCredential {
     [OutputType([Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphKeyCredential], [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphPasswordCredential])]
     [CmdletBinding(DefaultParameterSetName='ObjectIdParameterSet', PositionalBinding=$false, SupportsShouldProcess, ConfirmImpact='Medium')]
-    [Alias("Get-ADServicePrincipalCredential")]
+    [Alias("Get-AzADServicePrincipalCredential")]
     param(
         [Parameter(ParameterSetName='ObjectIdParameterSet', Mandatory, HelpMessage = "The object Id of service principal.")]
         [Alias('Id')]

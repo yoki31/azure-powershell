@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/get-azpeeringregisteredasn
+online version: https://learn.microsoft.com/powershell/module/az.peering/get-azpeeringregisteredasn
 schema: 2.0.0
 ---
 
@@ -37,14 +37,14 @@ Get or list a registered ASN.
 
 ### List registered ASNs for peering
 ```powershell
-PS C:\> Get-AzPeeringRegisteredAsn -ResourceGroupName $resourceGroupName -PeeringName $peeringName
+Get-AzPeeringRegisteredAsn -ResourceGroupName $resourceGroupName -PeeringName $peeringName
 ```
 
 Lists registered asn.
 
 ### Gets registered ASN for peering by name
 ```powershell
-PS C:\> Get-AzPeeringRegisteredAsn -ResourceGroupName $resourceGroupName -PeeringName $peeringName -Name $registeredAsnName
+Get-AzPeeringRegisteredAsn -ResourceGroupName $resourceGroupName -PeeringName $peeringName -Name $registeredAsnName
 ```
 
 Gets registered peering asn.

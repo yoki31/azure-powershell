@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/set-azpeeringregisteredprefix
+online version: https://learn.microsoft.com/powershell/module/az.peering/set-azpeeringregisteredprefix
 schema: 2.0.0
 ---
 
@@ -37,7 +37,7 @@ Allows the updating of a registered prefix from parent peering resource.
 
 ### Example 1
 ```powershell
-PS C:\> Set-AzPeeringRegisteredPrefix -ResourceId $resourceId -Prefix $newPrefix
+Set-AzPeeringRegisteredPrefix -ResourceId $resourceId -Prefix $newPrefix
 ```
 
 Updates the prefix by resource id.

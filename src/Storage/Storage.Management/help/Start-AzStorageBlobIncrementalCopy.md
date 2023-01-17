@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.dll-Help.xml
 Module Name: Az.Storage
-online version: https://docs.microsoft.com/powershell/module/az.storage/start-azstorageblobincrementalcopy
+online version: https://learn.microsoft.com/powershell/module/az.storage/start-azstorageblobincrementalcopy
 schema: 2.0.0
 ---
 
@@ -83,7 +83,7 @@ This command start Incremental Copy Operation using container pipeline from GetA
 
 ### Example 4:  start Incremental copy operation from CloudPageBlob object to destination blob with blob name
 ```
-PS C:\>$srcBlobSnapshot = Get-AzStorageBlob -Container container1 -prefix blob1| ?{$_.ICloudBlob.IsSnapshot})[0]
+PS C:\>$srcBlobSnapshot = Get-AzStorageBlob -Container container1 -prefix blob1| Where-Object ({$_.ICloudBlob.IsSnapshot})[0]
 PS C:\>Start-AzStorageBlobIncrementalCopy -CloudBlob $srcBlobSnapshot.ICloudBlob -DestContainer container2 -DestBlob blob2
 ```
 

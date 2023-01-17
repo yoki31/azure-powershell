@@ -17,19 +17,8 @@
 Lists API permissions the application has requested.
 .Description
 Lists API permissions the application has requested.
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-
-.Outputs
-Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.MicrosoftGraphApplicationApiPermission
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/get-azadapppermission
+https://learn.microsoft.com/powershell/module/az.resources/get-azadapppermission
 #>
 
 function Get-AzADAppPermission {
@@ -89,7 +78,7 @@ function Get-AzADAppPermission {
     process {
         switch ($PSCmdlet.ParameterSetName) {
             'ObjectIdParameterSet' {
-                $app = MSGraph.internal\Get-AzADApplication -Id $PSBoundParameters['ObjectId']
+                $app = Az.MSGraph.internal\Get-AzADApplication -Id $PSBoundParameters['ObjectId']
                 if($null -eq $app) {
                     Write-Error "Cannot find application by ObjectId $($PSBoundParameters['ObjectId'])"
                 }

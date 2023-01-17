@@ -2,7 +2,7 @@
 external help file: Microsoft.Azure.PowerShell.Cmdlets.RecoveryServices.dll-Help.xml
 Module Name: Az.RecoveryServices
 ms.assetid: 818B5302-91EE-425F-B1CD-86B626F1B7A3
-online version: https://docs.microsoft.com/powershell/module/az.recoveryservices/get-azrecoveryservicesvault
+online version: https://learn.microsoft.com/powershell/module/az.recoveryservices/get-azrecoveryservicesvault
 schema: 2.0.0
 ---
 
@@ -34,26 +34,28 @@ The **Get-AzRecoveryServicesVault** cmdlet gets a list of Recovery Services vaul
 
 ### Example 1
 
-```
-PS C:\> Get-AzRecoveryServicesVault
+```powershell
+Get-AzRecoveryServicesVault
 ```
 
 Get the list of vault in selected subscription.
 
 ### Example 2
 
-```
-PS C:\> Get-AzRecoveryServicesVault -ResourceGroupName "resourceGroup"
+```powershell
+Get-AzRecoveryServicesVault -ResourceGroupName "resourceGroup"
 ```
 
 Get the list of vault in resource group in selected subscription.
 
 ### Example 3
 
+```powershell
+$vault = Get-AzRecoveryServicesVault -ResourceGroupName "resourceGroup" -Name "vaultName"
+$vault.Identity | Format-List
 ```
-PS C:\> $vault = Get-AzRecoveryServicesVault -ResourceGroupName "resourceGroup" -Name "vaultName"
-PS C:\> $vault.Identity | fl
 
+```output
 PrincipalId : XXXXXXXX-XXXX-XXXX
 TenantId    : XXXXXXXX-XXXX-XXXX
 Type        : SystemAssigned

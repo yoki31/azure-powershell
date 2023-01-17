@@ -130,7 +130,7 @@ function Test-RemoveAzWebAppCertificate
 		
 		Remove-AzWebAppCertificate -ResourceGroupName $rgname -ThumbPrint $thumbprint
 
-		$certificate = Get-AzWebAppCertificate -Thumbprint $thumbprint
+		$certificate = Get-AzWebAppCertificate -ResourceGroupName $rgname -Thumbprint $thumbprint
 		
 		#Assert
 		$certificate.count -eq 0
@@ -147,10 +147,10 @@ Tests for importing a keyvaultcertificate to appservice
 #>
 function Test-ImportAzWebAppKeyVaultCertificate
 {
-	$rgname = "testkv1611"
-	$wname = "testasewebapp"
-	$keyvaultname =	"testkv1611"
-	$keyvaultcertname =	"testcertname1611"
+	$rgname = "RG-PS-UnitTesting"
+	$wname = "PS-AppServices-UnitTesting"
+	$keyvaultname =	"PS-UnitTesting-Keyvault"
+	$keyvaultcertname =	"PS-UnitTesting"
 	try
 	{		
 		#Setup

@@ -101,6 +101,16 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     }
 
     /// <summary>
+    /// Tier mode for automatic tiering of Recovery points
+    /// </summary>
+    public enum TieringMode
+    {
+        TierRecommended = 1,
+        TierAllEligible, 
+        DoNotTier
+    }
+
+    /// <summary>
     /// Type of the backup engine.
     /// </summary>
     public enum BackupEngineType
@@ -189,6 +199,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
         /// Represents the registered state of the container with the recovery services vault.
         /// </summary>
         Registered = 1,
+        NotRegistered = 2,
     }
 
     /// <summary>
@@ -298,6 +309,7 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     {
         Daily = 1,
         Weekly = 2,
+        Hourly = 3
     }
 
     /// <summary>
@@ -318,6 +330,15 @@ namespace Microsoft.Azure.Commands.RecoveryServices.Backup.Cmdlets.Models
     {
         Daily = 1,
         Weekly = 2
+    }
+
+    /// <summary>
+    /// Represents the type of the policy
+    /// </summary>
+    public enum PSPolicyType
+    {
+        Standard = 1,
+        Enhanced = 2
     }
 
     #endregion

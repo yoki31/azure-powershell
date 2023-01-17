@@ -2,7 +2,7 @@
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.dll-Help.xml
 Module Name: Az.Storage
 ms.assetid: FA98E64B-D589-4653-9ACC-86573FAF4550
-online version: https://docs.microsoft.com/powershell/module/az.storage/set-azstoragefilecontent
+online version: https://learn.microsoft.com/powershell/module/az.storage/set-azstoragefilecontent
 schema: 2.0.0
 ---
 
@@ -70,7 +70,7 @@ For more information about script blocks, type `Get-Help about_Script_Blocks`.
 
 ### Example 3: Upload a local file to an Azure file, and perserve the local File SMB properties (File Attributtes, File Creation Time, File Last Write Time) in the Azure file.
 ```
-PS C:\>Get-AzStorageFileContent -source $localFilePath -ShareName sample -Path "dir1/file1" -PreserveSMBAttribute
+PS C:\>Set-AzStorageFileContent -Source $localFilePath -ShareName sample -Path "dir1/file1" -PreserveSMBAttribute
 ```
 
 This example uploads a local file to an Azure file, and perserves the local File SMB properties (File Attributtes, File Creation Time, File Last Write Time) in the Azure file.

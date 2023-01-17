@@ -20,21 +20,29 @@ Lists entities from users or get entity from users by key
 .Description
 Lists entities from users or get entity from users by key
 .Example
-PS C:\> Get-AzADUser -SignedIn
+Get-AzADUser -SignedIn
 .Example
-PS C:\> Get-AzADUser -First 10 -Select 'City' -AppendSelected
+Get-AzADUser -First 10 -Select 'City' -AppendSelected
 .Example
-PS C:\> Get-AzADUser -DisplayName $name
+Get-AzADUser -DisplayName $name
+.Example
+Get-AzADUser -Filter "startsWith(DisplayName,'some-name')"
 
 .Outputs
 Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphUser
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/get-azaduser
+https://learn.microsoft.com/powershell/module/az.resources/get-azaduser
 #>
 function Get-AzADUser {
 [OutputType([Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphUser])]
 [CmdletBinding(DefaultParameterSetName='List', PositionalBinding=$false)]
 param(
+    [Parameter(ParameterSetName='List')]
+    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Query')]
+    [System.Management.Automation.SwitchParameter]
+    # Include count of items
+    ${Count},
+
     [Parameter()]
     [AllowEmptyCollection()]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
@@ -76,7 +84,7 @@ param(
     [Parameter(ParameterSetName='List')]
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
     [System.String]
-    # Filter items by property values
+    # Filter items by property values, for more detail about filter query please see: https://learn.microsoft.com/en-us/graph/filter-query-parameter
     ${Filter},
 
     [Parameter(ParameterSetName='List')]
@@ -192,14 +200,32 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
+        if ($null -eq [Microsoft.WindowsAzure.Commands.Utilities.Common.AzurePSCmdlet]::PowerShellVersion) {
+            [Microsoft.WindowsAzure.Commands.Utilities.Common.AzurePSCmdlet]::PowerShellVersion = $Host.Version.ToString()
+        }         
+        $preTelemetryId = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId
+        if ($preTelemetryId -eq '') {
+            [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId =(New-Guid).ToString()
+            [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.module]::Instance.Telemetry.Invoke('Create', $MyInvocation, $parameterSet, $PSCmdlet)
+        } else {
+            $internalCalledCmdlets = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets
+            if ($internalCalledCmdlets -eq '') {
+                [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets = $MyInvocation.MyCommand.Name
+            } else {
+                [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets += ',' + $MyInvocation.MyCommand.Name
+            }
+            [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId = 'internal'
+        }
+
         $mapping = @{
-            List = 'MSGraph.custom\Get-AzADUser';
-            ObjectIdParameterSet = 'MSGraph.custom\Get-AzADUser';
-            StartsWithParameterSet = 'MSGraph.custom\Get-AzADUser';
-            DisplayNameParameterSet = 'MSGraph.custom\Get-AzADUser';
-            UPNParameterSet = 'MSGraph.custom\Get-AzADUser';
-            MailParameterSet = 'MSGraph.custom\Get-AzADUser';
-            SignedInUser = 'MSGraph.custom\Get-AzADUser';
+            List = 'Az.MSGraph.custom\Get-AzADUser';
+            ObjectIdParameterSet = 'Az.MSGraph.custom\Get-AzADUser';
+            StartsWithParameterSet = 'Az.MSGraph.custom\Get-AzADUser';
+            DisplayNameParameterSet = 'Az.MSGraph.custom\Get-AzADUser';
+            UPNParameterSet = 'Az.MSGraph.custom\Get-AzADUser';
+            MailParameterSet = 'Az.MSGraph.custom\Get-AzADUser';
+            SignedInUser = 'Az.MSGraph.custom\Get-AzADUser';
         }
         $cmdInfo = Get-Command -Name $mapping[$parameterSet]
         [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Runtime.MessageAttributeHelper]::ProcessCustomAttributesAtRuntime($cmdInfo, $MyInvocation, $parameterSet, $PSCmdlet)
@@ -208,6 +234,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
         throw
     }
 }
@@ -216,15 +243,32 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
         throw
     }
-}
 
+    finally {
+        $backupTelemetryId = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId
+        $backupInternalCalledCmdlets = [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
+    }
+
+}
 end {
     try {
         $steppablePipeline.End()
+
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId = $backupTelemetryId
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::InternalCalledCmdlets = $backupInternalCalledCmdlets
+        if ($preTelemetryId -eq '') {
+            [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.module]::Instance.Telemetry.Invoke('Send', $MyInvocation, $parameterSet, $PSCmdlet)
+            [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
+        }
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::TelemetryId = $preTelemetryId
+
     } catch {
+        [Microsoft.WindowsAzure.Commands.Common.MetricHelper]::ClearTelemetryContext()
         throw
     }
-}
+} 
 }

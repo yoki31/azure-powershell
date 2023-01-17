@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.Management.dll-Help.xml
 Module Name: Az.Storage
-online version: https://docs.microsoft.com/powershell/module/az.storage/add-azstorageaccountnetworkrule
+online version: https://learn.microsoft.com/powershell/module/az.storage/add-azstorageaccountnetworkrule
 schema: 2.0.0
 ---
 
@@ -59,7 +59,7 @@ The **Add-AzStorageAccountNetworkRule** cmdlet adds IpRules or VirtualNetworkRul
 
 ### Example 1: Add several IpRules with IPAddressOrRange
 ```
-PS C:\>Add-AzStorageAccountNetworkRule -ResourceGroupName "myResourceGroup" -Name "mystorageaccount" -IPAddressOrRange "10.0.0.0/24","28.2.0.0/16"
+PS C:\>Add-AzStorageAccountNetworkRule -ResourceGroupName "myResourceGroup" -Name "mystorageaccount" -IPAddressOrRange "10.0.0.0/7","28.2.0.0/16"
 ```
 
 This command add several IpRules with IPAddressOrRange.
@@ -82,7 +82,7 @@ This command add VirtualNetworkRules with VirtualNetworkRule Objects from anothe
 
 ### Example 4: Add several IpRule with IpRule objects, input with JSON
 ```
-PS C:\>Add-AzStorageAccountNetworkRule -ResourceGroupName "myResourceGroup" -Name "mystorageaccount" -IPRule (@{IPAddressOrRange="10.0.0.0/24";Action="allow"},@{IPAddressOrRange="28.2.0.0/16";Action="allow"})
+PS C:\>Add-AzStorageAccountNetworkRule -ResourceGroupName "myResourceGroup" -Name "mystorageaccount" -IPRule (@{IPAddressOrRange="10.0.0.0/7";Action="allow"},@{IPAddressOrRange="28.2.0.0/16";Action="allow"})
 ```
 
 This command add several IpRule with IpRule objects, input with JSON.

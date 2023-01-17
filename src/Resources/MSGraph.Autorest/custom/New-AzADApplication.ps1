@@ -18,19 +18,6 @@
 Adds new entity to applications
 .Description
 Adds new entity to applications
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-.Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
-
-.Inputs
-Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphApplication
-.Outputs
-Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphApplication
 .Notes
 COMPLEX PARAMETER PROPERTIES
 
@@ -290,7 +277,7 @@ WEB <IMicrosoftGraphWebApplication>: webApplication
   [LogoutUrl <String>]: Specifies the URL that will be used by Microsoft's authorization service to logout an user using front-channel, back-channel or SAML logout protocols.
   [RedirectUri <String[]>]: Specifies the URLs where user tokens are sent for sign-in, or the redirect URIs where OAuth 2.0 authorization codes and access tokens are sent.
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/new-azadapplication
+https://learn.microsoft.com/powershell/module/az.resources/new-azadapplication
 #>
 function New-AzADApplication {
   [OutputType([Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphApplication])]
@@ -368,6 +355,12 @@ function New-AzADApplication {
     [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
     [System.DateTime]
     ${EndDate},
+
+    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Category('Body')]
+    [Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.IMicrosoftGraphWebApplication]
+    # webApplication
+    # To construct, see NOTES section for WEB properties and create a hash table.
+    ${Web},
 
     [Parameter()]
     [AllowEmptyCollection()]
@@ -639,16 +632,18 @@ function New-AzADApplication {
     # even if payload contains all three redirect options, only one will be added in the actual app, the order is
     # web -> spa -> public client
     if ($PSBoundParameters['HomePage'] -or $PSBoundParameters['ReplyUrls']) {
-      $props = @{}
+      if (!$PSBoundParameters['Web']) {
+        $PSBoundParameters['Web'] = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphWebApplication" -Property $props
+      } 
+
       if ($PSBoundParameters['HomePage']) {
-        $props['HomePageUrl'] = $PSBoundParameters['HomePage']
+        $PSBoundParameters['Web'].HomePageUrl = $PSBoundParameters['HomePage']
         $null = $PSBoundParameters.Remove('HomePage')
       }
       if ($PSBoundParameters['ReplyUrls']) {
-        $props['RedirectUri'] = $PSBoundParameters['ReplyUrls']
+        $PSBoundParameters['Web'].RedirectUri = $PSBoundParameters['ReplyUrls']
         $null = $PSBoundParameters.Remove('ReplyUrls')
       }
-      $PSBoundParameters['Web'] = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphWebApplication" -Property $props
     }
     elseif ($PSBoundParameters['SPARedirectUri']) {
       $PSBoundParameters['SPA'] = New-Object -TypeName "Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Models.ApiV10.MicrosoftGraphSPAApplication" -Property @{'RedirectUri' = $PSBoundParameters['SPARedirectUri'] }
@@ -691,7 +686,7 @@ function New-AzADApplication {
       }
     }
 
-    $app = MSGraph.internal\New-AzADApplication @PSBoundParameters
+    $app = Az.MSGraph.internal\New-AzADApplication @PSBoundParameters
     $param = @{'ObjectId' = $app.Id}
 
     switch ($PSCmdlet.ParameterSetName) {
@@ -702,12 +697,12 @@ function New-AzADApplication {
         if ($ed) {
           $param['EndDate'] = $ed
         }
-        $null = New-AzADAppCredential @param
+        $app.PasswordCredentials = New-AzADAppCredential @param
         break
       }
       'ApplicationWithPasswordCredentialParameterSet' {
         $param['PasswordCredentials'] = $pc
-        $null = New-AzADAppCredential @param
+        $app.PasswordCredentials = New-AzADAppCredential @param
         break
       }
       default {

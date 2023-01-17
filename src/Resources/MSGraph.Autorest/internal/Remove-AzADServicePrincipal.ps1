@@ -22,14 +22,14 @@ The directoryObject type is the base type for many other directory entity types.
 Represents an Azure Active Directory object.
 The directoryObject type is the base type for many other directory entity types.
 .Example
-PS C:\> Remove-AzADServicePrincipal -DisplayName $name
+Remove-AzADServicePrincipal -DisplayName $name
 .Example
-PS C:\> Get-AzADServicePrincipal -Application $id | Remove-AzADServicePrincipal
+Get-AzADServicePrincipal -ApplicationId $id | Remove-AzADServicePrincipal
 
 .Outputs
 System.Boolean
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/remove-azadserviceprincipal
+https://learn.microsoft.com/powershell/module/az.resources/remove-azadserviceprincipal
 #>
 function Remove-AzADServicePrincipal {
 [OutputType([System.Boolean])]
@@ -109,8 +109,9 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
         $mapping = @{
-            Delete = 'Az.Resources.MSGraph.private\Remove-AzADServicePrincipal_Delete';
+            Delete = 'Az.MSGraph.private\Remove-AzADServicePrincipal_Delete';
         }
 
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
@@ -118,6 +119,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+
         throw
     }
 }
@@ -126,15 +128,18 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+
         throw
     }
-}
 
+}
 end {
     try {
         $steppablePipeline.End()
+
     } catch {
+
         throw
     }
-}
+} 
 }

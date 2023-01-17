@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/remove-azpeeringregisteredprefix
+online version: https://learn.microsoft.com/powershell/module/az.peering/remove-azpeeringregisteredprefix
 schema: 2.0.0
 ---
 
@@ -38,7 +38,7 @@ Allows the removal of registered prefix from parent peering resource.
 
 ### Example 1
 ```powershell
-PS C:\> Remove-AzPeeringRegisteredPrefix -ResourceId $resourceId
+Remove-AzPeeringRegisteredPrefix -ResourceId $resourceId
 ```
 
 Remove a registerd prefix by resource id.

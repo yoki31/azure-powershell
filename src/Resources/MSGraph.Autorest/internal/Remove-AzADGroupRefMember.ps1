@@ -26,18 +26,14 @@ HTTP Methods: GET (supported for all groups), POST (supported for security group
 Nullable.
 Supports $expand.
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+{{ Add code here }}
 .Example
-PS C:\> {{ Add code here }}
-
-{{ Add output here }}
+{{ Add code here }}
 
 .Outputs
 System.Boolean
 .Link
-https://docs.microsoft.com/powershell/module/az.resources/remove-azadgrouprefmember
+https://learn.microsoft.com/powershell/module/az.resources/remove-azadgrouprefmember
 #>
 function Remove-AzADGroupRefMember {
 [OutputType([System.Boolean])]
@@ -116,8 +112,9 @@ begin {
             $PSBoundParameters['OutBuffer'] = 1
         }
         $parameterSet = $PSCmdlet.ParameterSetName
+
         $mapping = @{
-            Delete = 'Az.Resources.MSGraph.private\Remove-AzADGroupRefMember_Delete';
+            Delete = 'Az.MSGraph.private\Remove-AzADGroupRefMember_Delete';
         }
 
         $wrappedCmd = $ExecutionContext.InvokeCommand.GetCommand(($mapping[$parameterSet]), [System.Management.Automation.CommandTypes]::Cmdlet)
@@ -125,6 +122,7 @@ begin {
         $steppablePipeline = $scriptCmd.GetSteppablePipeline($MyInvocation.CommandOrigin)
         $steppablePipeline.Begin($PSCmdlet)
     } catch {
+
         throw
     }
 }
@@ -133,15 +131,18 @@ process {
     try {
         $steppablePipeline.Process($_)
     } catch {
+
         throw
     }
-}
 
+}
 end {
     try {
         $steppablePipeline.End()
+
     } catch {
+
         throw
     }
-}
+} 
 }

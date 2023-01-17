@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/new-azpeeringservice
+online version: https://learn.microsoft.com/powershell/module/az.peering/new-azpeeringservice
 schema: 2.0.0
 ---
 
@@ -25,8 +25,10 @@ Creates peering service.
 
 ### Example 1
 ```powershell
-PS C:\> New-AzPeeringService -ResourceGroupName $resourceGroup -Name $name -Location $loc -PeeringServiceProvider $provider
+New-AzPeeringService -ResourceGroupName $resourceGroup -Name $name -PeeringServiceProvider $provider
+```
 
+```output
 PeeringServiceLocation : Washington
 PeeringServiceProvider : TestPeer1
 ProvisioningState      : Succeeded
@@ -87,7 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -PeeringLocation
-The Physical Location Different from Azure Region. Use Get-AzPeeringServiceLocation [-Country <country>]
+The Physical Location Different from Azure Region. Use Get-AzPeeringServiceLocation [-Country `<country>`]
 
 ```yaml
 Type: System.String

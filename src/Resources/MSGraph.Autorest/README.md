@@ -1,10 +1,10 @@
 <!-- region Generated -->
-# Az.Resources
+# Az.MSGraph
 This directory contains the PowerShell module for the MSGraph service.
 
 ---
 ## Status
-[![Az.Resources](https://img.shields.io/powershellgallery/v/Az.Resources.svg?style=flat-square&label=Az.Resources "Az.Resources")](https://www.powershellgallery.com/packages/Az.Resources/)
+[![Az.MSGraph](https://img.shields.io/powershellgallery/v/Az.MSGraph.svg?style=flat-square&label=Az.MSGraph "Az.MSGraph")](https://www.powershellgallery.com/packages/Az.MSGraph/)
 
 ## Info
 - Modifiable: yes
@@ -17,13 +17,13 @@ This directory contains the PowerShell module for the MSGraph service.
 This module was primarily generated via [AutoRest](https://github.com/Azure/autorest) using the [PowerShell](https://github.com/Azure/autorest.powershell) extension.
 
 ## Module Requirements
-- [Az.Accounts module](https://www.powershellgallery.com/packages/Az.Accounts/), version 2.2.3 or greater
+- [Az.Accounts module](https://www.powershellgallery.com/packages/Az.Accounts/), version 2.7.5 or greater
 
 ## Authentication
 AutoRest does not generate authentication code for the module. Authentication is handled via Az.Accounts by altering the HTTP payload before it is sent.
 
 ## Development
-For information on how to develop for `Az.Resources`, see [how-to.md](how-to.md).
+For information on how to develop for `Az.MSGraph`, see [how-to.md](how-to.md).
 <!-- endregion -->
 
 ---
@@ -51,21 +51,17 @@ require:
   - $(this-folder)/../../readme.azure.noprofile.md
 
 input-file:
-  - ../Applications.yml
-  - ../Groups.yml
-  - ../Users.yml
-  - ../CommonTypes.yml
+  - ../OpenApiSpecs/v1.0/Identity.DirectoryManagement.yml
+  - ../OpenApiSpecs/v1.0/Applications.yml
+  - ../OpenApiSpecs/v1.0/Groups.yml
+  - ../OpenApiSpecs/beta/Groups.yml
+  - ../OpenApiSpecs/v1.0/Users.yml
+  - ../OpenApiSpecs/CommonTypes.yml
 
-module-name: $(prefix).Resources
+root-module-name: $(prefix).Resources
 title: MSGraph
-dll-name: Az.Resources.MSGraph.private
-csproj: MSGraph.csproj
-psm1: MSGraph.psm1
-psm1-internal: internal/MSGraph.internal.psm1
-psm1-custom: custom/MSGraph.custom.psm1
-format-ps1xml: MSGraph.format.ps1xml
 namespace: Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph
-subject-prefix: Ad
+subject-prefix: AD
 identity-correction-for-post: true
 endpoint-resource-id-key-name: MicrosoftGraphEndpointResourceId
 export-properties-for-dict: false
@@ -74,6 +70,8 @@ nested-object-to-string: true
 # Disable default settings and Set in to empty for msgraph
 default-exclude-tableview-properties: false
 exclude-tableview-properties: []
+
+inlining-threshold: 200
 
 directive:
   - no-inline:
@@ -123,6 +121,11 @@ directive:
     where: $
     transform: if ($documentPath.endsWith("MSGraph.cs")) {$ = $.replace(/Count.ToString\(\)/g, "Count.ToString().ToLower()")}
   
+  # hide user owned application cmdlets
+  - where:
+      subject: UserOwnedApplication|UserOwnedObject
+    hide: true
+
   # remove pipe support support since data plane does not have resource Id.
   - where:
       variant: (.*)ViaIdentity(.*)
@@ -134,9 +137,46 @@ directive:
     remove: true
 
   - where:
-      subject: ^application$|^group$|^serviceprincipal$|^user$
-      variant: ^Update$
+      subject: ^serviceprincipalfederatedidentitycredentials$
     remove: true
+
+  - where:
+      subject: ^application$|^group$|^serviceprincipal$|^user$|^applicationfederatedidentitycredentials$
+      variant: ^Update$|^Create$
+    remove: true
+
+  - where:
+      subject: ^applicationfederatedidentitycredentials$
+      parameter-name: applicationid
+    set:
+      parameter-name: ApplicationObjectId
+
+  - where:
+      subject: ^applicationfederatedidentitycredentials$
+      parameter-name: FederatedIdentityCredentialId
+    set:
+      parameter-name: FederatedCredentialId 
+
+  - where:
+      subject: ^applicationfederatedidentitycredentials$
+      verb: ^Update$
+      parameter-name: Name
+    hide: true
+
+  - where:
+      subject: ^applicationfederatedidentitycredentials$
+      verb: Get|New
+    hide: true
+
+  - where:
+      subject: ^applicationfederatedidentitycredential$|GroupGraphRefMember$|grouprefmember$|groupmember$
+    set:
+      preview-message: This cmdlet is using API version beta which is under preview.
+
+  - where:
+      subject: ^applicationfederatedidentitycredentials$
+    set: 
+      subject: AppFederatedCredential
 
   - where:
       subject: ^application$|^serviceprincipal$|^group$
@@ -150,7 +190,22 @@ directive:
       property-name: Items
 
   - where:
-      subject: application$|applicationpassword$|applicationkey$|serviceprincipal$|serviceprincipalpassword$|serviceprincipalkey$|groupmember$|user$|group$|groupmember$|grouprefmember$
+      subject: application$|applicationpassword$|applicationkey$|serviceprincipal$|serviceprincipalpassword$|serviceprincipalkey$|groupmember$|user$|GroupGraphRefMember$|grouprefmember$
+    hide: true
+  - where:
+      subject: organization
+      verb: New
+    hide: true
+  - where:
+      subject: ^group$
+      verb: ^Update$
+      parameter-name: Id
+    set:
+      parameter-name: ObjectId
+
+  - where: 
+      subject: ^group$
+      verb: ^(?!.*Update).*
     hide: true
 
   - where:

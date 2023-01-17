@@ -1,7 +1,7 @@
 ---
-external help file:
+external help file: Az.Resources-help.xml
 Module Name: Az.Resources
-online version: https://docs.microsoft.com/powershell/module/az.resources/get-azadgroup
+online version: https://learn.microsoft.com/powershell/module/az.resources/get-azadgroup
 schema: 2.0.0
 ---
 
@@ -14,28 +14,28 @@ Lists entities from groups or get entity from groups by key
 
 ### EmptyParameterSet (Default)
 ```
-Get-AzADGroup [-AppendSelected] [-ConsistencyLevel <String>] [-Expand <String[]>] [-Filter <String>]
- [-First <UInt64>] [-Orderby <String[]>] [-Search <String>] [-Select <String[]>] [-Skip <UInt64>]
+Get-AzADGroup [-Count] [-Expand <String[]>] [-Select <String[]>] [-Filter <String>] [-Orderby <String[]>]
+ [-Search <String>] [-ConsistencyLevel <String>] [-First <UInt64>] [-Skip <UInt64>] [-AppendSelected]
  [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### DisplayNameParameterSet
 ```
-Get-AzADGroup -DisplayName <String> [-AppendSelected] [-ConsistencyLevel <String>] [-Expand <String[]>]
- [-First <UInt64>] [-Select <String[]>] [-Skip <UInt64>] [-DefaultProfile <PSObject>] [<CommonParameters>]
-```
-
-### ObjectIdParameterSet
-```
-Get-AzADGroup -ObjectId <Guid> [-AppendSelected] [-ConsistencyLevel <String>] [-Expand <String[]>]
- [-Select <String[]>] [-DefaultProfile <PSObject>] [<CommonParameters>]
+Get-AzADGroup [-Expand <String[]>] [-Select <String[]>] [-ConsistencyLevel <String>] [-First <UInt64>]
+ [-Skip <UInt64>] [-AppendSelected] -DisplayName <String> [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ### SearchStringParameterSet
 ```
-Get-AzADGroup -DisplayNameStartsWith <String> [-AppendSelected] [-ConsistencyLevel <String>]
- [-Expand <String[]>] [-First <UInt64>] [-Select <String[]>] [-Skip <UInt64>] [-DefaultProfile <PSObject>]
+Get-AzADGroup [-Expand <String[]>] [-Select <String[]>] [-ConsistencyLevel <String>] [-First <UInt64>]
+ [-Skip <UInt64>] [-AppendSelected] -DisplayNameStartsWith <String> [-DefaultProfile <PSObject>]
  [<CommonParameters>]
+```
+
+### ObjectIdParameterSet
+```
+Get-AzADGroup [-Expand <String[]>] [-Select <String[]>] [-ConsistencyLevel <String>] [-AppendSelected]
+ -ObjectId <Guid> [-DefaultProfile <PSObject>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,24 +45,31 @@ Lists entities from groups or get entity from groups by key
 
 ### Example 1: Get group by display name
 ```powershell
-PS C:\> Get-AzADGroup -DisplayName $gname
+Get-AzADGroup -DisplayName $gname
 ```
 
 Get group by display name
 
 ### Example 2: List groups
 ```powershell
-PS C:\> Get-AzADGroup -First 10
+Get-AzADGroup -First 10
 ```
 
 List first 10 groups
 
 ### Example 3: Get group by object id
 ```powershell
-PS C:\> Get-AzADGroup -ObjectId $id -Select groupTypes -AppendSelected
+Get-AzADGroup -ObjectId $id -Select groupTypes -AppendSelected
 ```
 
 Get group by object id and append property 'groupTypes' after default properties: 'DisplayName', 'Id', 'DeletedDateTime', 'SecurityEnabled', 'MailEnabled', 'MailNickname', 'Description'
+
+### Example 4: Get group with filter
+```powershell
+Get-AzADGroup -Filter "startsWith(DisplayName,'some-name')"
+```
+
+Get group with filter
 
 ## PARAMETERS
 
@@ -88,6 +95,21 @@ Documentation URL: https://developer.microsoft.com/en-us/office/blogs/microsoft-
 ```yaml
 Type: System.String
 Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Count
+Include count of items
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: EmptyParameterSet
 Aliases:
 
 Required: False
@@ -158,26 +180,11 @@ Accept wildcard characters: False
 ```
 
 ### -Filter
-Filter items by property values
+Filter items by property values, for more detail about filter query please see: https://learn.microsoft.com/en-us/graph/filter-query-parameter
 
 ```yaml
 Type: System.String
 Parameter Sets: EmptyParameterSet
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -First
-Gets only the first 'n' objects.
-
-```yaml
-Type: System.UInt64
-Parameter Sets: DisplayNameParameterSet, EmptyParameterSet, SearchStringParameterSet
 Aliases:
 
 Required: False
@@ -252,7 +259,22 @@ Ignores the first 'n' objects and then gets the remaining objects.
 
 ```yaml
 Type: System.UInt64
-Parameter Sets: DisplayNameParameterSet, EmptyParameterSet, SearchStringParameterSet
+Parameter Sets: EmptyParameterSet, DisplayNameParameterSet, SearchStringParameterSet
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -First
+Gets only the first 'n' objects.
+
+```yaml
+Type: System.UInt64
+Parameter Sets: EmptyParameterSet, DisplayNameParameterSet, SearchStringParameterSet
 Aliases:
 
 Required: False
@@ -276,4 +298,3 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ALIASES
 
 ## RELATED LINKS
-

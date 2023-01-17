@@ -1,7 +1,7 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Peering.dll-Help.xml
 Module Name: Az.Peering
-online version: https://docs.microsoft.com/powershell/module/az.peering/get-azpeeringservice
+online version: https://learn.microsoft.com/powershell/module/az.peering/get-azpeeringservice
 schema: 2.0.0
 ---
 
@@ -36,8 +36,10 @@ Gets peering services for a subscription
 
 ### Example 1
 ```powershell
-PS C:\> Get-AzPeeringService -ResourceGroupName $rgName
+Get-AzPeeringService -ResourceGroupName $rgName
+```
 
+```output
 PeeringServiceLocation : Washington
 PeeringServiceProvider : TestPeer1
 ProvisioningState      : Succeeded
@@ -61,8 +63,10 @@ Gets a peering service for a resource group
 
 ### Example 2
 ```powershell
-PS C:\> Get-AzPeeringService -ResourceGroupName $rgName -Name $name
+Get-AzPeeringService -ResourceGroupName $rgName -Name $name
+```
 
+```output
 PeeringServiceLocation : Washington
 PeeringServiceProvider : TestPeer1
 ProvisioningState      : Succeeded
@@ -77,8 +81,10 @@ Gets a peering service for a resource group and name
 
 ### Example 3
 ```powershell
-PS C:\> Get-AzPeeringService -ResourceId $rid
+Get-AzPeeringService -ResourceId $rid
+```
 
+```output
 PeeringServiceLocation : Washington
 PeeringServiceProvider : TestPeer1
 ProvisioningState      : Succeeded

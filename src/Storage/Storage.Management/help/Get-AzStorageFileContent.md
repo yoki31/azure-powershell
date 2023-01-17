@@ -2,7 +2,7 @@
 external help file: Microsoft.Azure.PowerShell.Cmdlets.Storage.dll-Help.xml
 Module Name: Az.Storage
 ms.assetid: 6420CBE1-BF9D-493D-BCA8-E8C6688FAF3B
-online version: https://docs.microsoft.com/powershell/module/az.storage/get-azstoragefilecontent
+online version: https://learn.microsoft.com/powershell/module/az.storage/get-azstoragefilecontent
 schema: 2.0.0
 ---
 
@@ -60,7 +60,7 @@ This command downloads a file that is named CurrentDataFile in the folder Contos
 
 ### Example 2: Downloads the files under sample file share
 ```
-PS C:\>Get-AzStorageFile -ShareName sample | ? {$_.GetType().Name -eq "CloudFile"} | Get-AzStorageFileContent
+PS C:\>Get-AzStorageFile -ShareName sample | Where-Object {$_.GetType().Name -eq "CloudFile"} | Get-AzStorageFileContent
 ```
 
 This example downloads the files under sample file share

@@ -71,7 +71,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Runtime.PowerShel
                 var sb = new StringBuilder();
                 sb.AppendLine("@{");
                 sb.AppendLine($@"{GuidStart} = '{ModuleGuid}'");
-                sb.AppendLine($@"{Indent}RootModule = '{"MSGraph.psm1"}'");
+                sb.AppendLine($@"{Indent}RootModule = '{"./Az.MSGraph.psm1"}'");
                 sb.AppendLine($@"{Indent}ModuleVersion = '{version}'");
                 sb.AppendLine($@"{Indent}CompatiblePSEditions = 'Core', 'Desktop'");
                 sb.AppendLine($@"{Indent}Author = '{"Microsoft Corporation"}'");
@@ -94,7 +94,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Runtime.PowerShel
                 }
                 else
                 {
-                    sb.AppendLine($@"{Indent}RequiredAssemblies = '{"./bin/Az.Resources.MSGraph.private.dll"}'");
+                    sb.AppendLine($@"{Indent}RequiredAssemblies = '{"./bin/Az.MSGraph.private.dll"}'");
                 }
 
                 // NestedModules
@@ -113,7 +113,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Runtime.PowerShel
                     var customFormatPs1xmlFiles = Directory.GetFiles(CustomFolder)
                         .Where(f => f.EndsWith(".format.ps1xml"))
                         .Select(f => $"{CustomFolderRelative}/{Path.GetFileName(f)}");
-                    var formatList = customFormatPs1xmlFiles.Prepend("MSGraph.format.ps1xml").ToPsList();
+                    var formatList = customFormatPs1xmlFiles.Prepend("./Az.MSGraph.format.ps1xml").ToPsList();
                     sb.AppendLine($@"{Indent}FormatsToProcess = {formatList}");
                 }
 
@@ -163,7 +163,7 @@ namespace Microsoft.Azure.PowerShell.Cmdlets.Resources.MSGraph.Runtime.PowerShel
 
                 if (previewVersion != null)
                 {
-                    sb.AppendLine($@"{Indent}{Indent}{Indent}Prerelease = {previewVersion}");
+                    sb.AppendLine($@"{Indent}{Indent}{Indent}Prerelease = '{previewVersion}'");
                 }
                 sb.AppendLine($@"{Indent}{Indent}{Indent}Tags = {"Azure ResourceManager ARM PSModule MSGraph".Split(' ').ToPsList().NullIfEmpty() ?? "''"}");
                 sb.AppendLine($@"{Indent}{Indent}{Indent}LicenseUri = '{"https://aka.ms/azps-license"}'");
